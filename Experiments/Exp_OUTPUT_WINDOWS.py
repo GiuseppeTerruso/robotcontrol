@@ -109,7 +109,7 @@ class ServerSocket:
                     if x == False:
                         print 'Invalid sign received'
                         out_file = open(self.name+sep+"resultsPerformedHand.txt","a")
-                        out_file.write('Invalid sign ' + buf + 'received! \n')
+                        out_file.write('Invalid sign ' + buf + ' received! \n')
                         out_file.close()
                     else:
                         res = hand.perform_sign(buf)
@@ -120,9 +120,9 @@ class ServerSocket:
                         out_file.write(res + '\n')
                         out_file.close()
 
-                        out_file = open(self.name+sep+"resultsReceivedInternet.txt","a")
-                        out_file.write(buf + '\t' + buf + '\n')
-                        out_file.close()
+                    out_file = open(self.name+sep+"resultsReceivedInternet.txt","a")
+                    out_file.write(buf + '\t' + buf + '\n')
+                    out_file.close()
                     
                     #if actual_sign == buf:
                         #actual_counter += 1

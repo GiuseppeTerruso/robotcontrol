@@ -1,5 +1,0 @@
-Sign received from internet	Actual joints positions
-A	A
-A	A
-B	B
-C	C
