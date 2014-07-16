@@ -242,7 +242,7 @@ class Hand:
 
 
     def perform_sign(self, msg):
-        #print 'Segno da stampare ' + msg
+        print 'Segno da stampare ' + msg
         self.FNCT_LIST[msg](self)
         time.sleep(5)
         return self.get_sign()
