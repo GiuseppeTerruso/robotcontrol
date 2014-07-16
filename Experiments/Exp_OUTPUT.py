@@ -2,7 +2,7 @@
 
 #Import required
 import sys
-from os import sep, mkdir
+from os import *
 import numpy as np
 from cv2 import *
 from hand_grabber import PyOpenNIHandGrabber
@@ -143,6 +143,11 @@ if __name__=="__main__":
         print("Usage:Client > python script_name serial volunteer")
 
     else:
+
+        if not path.exists(sys.argv[2]):
+            mkdir(sys.argv[2])
+            print "New folder created for this experiment"
+
         server = ServerSocket(IP, PORT, 'P'*16, sys.argv[1], sys.argv[2])
         crypt = AES.new(PASSCODE)
         server.start(crypt)

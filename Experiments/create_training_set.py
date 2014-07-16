@@ -3,7 +3,8 @@
 #Except dynamic sings (G J Z from Italian tLIS)
 
 import sys
-from os import sep, mkdir
+#from os import sep, mkdir
+from os import *
 import numpy as np
 from cv2 import *
 from hand_grabber import PyOpenNIHandGrabber
@@ -35,6 +36,10 @@ if __name__=="__main__":
         print("Usage: > python script_name forest person_name")
 
     if len(sys.argv)==3:
+
+        if not path.exists(sys.argv[2]):
+            mkdir(sys.argv[2])
+            print "New folder created for this experiment"
 
         namedWindow("rgb")
         namedWindow("mask")

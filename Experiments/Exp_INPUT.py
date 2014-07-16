@@ -2,7 +2,7 @@
 
 #Import required
 import sys
-from os import sep, mkdir
+from os import *
 import numpy as np
 from cv2 import *
 from hand_grabber import PyOpenNIHandGrabber
@@ -103,6 +103,11 @@ if __name__=="__main__":
         print("Usage: > python script_name forest1 forest2 person_name")
 
     else:
+
+        if not path.exists(sys.argv[3]):
+            mkdir(sys.argv[3])
+            print "New folder created for this experiment"
+
         client = ClientSocket(IP, PORT, 'P'*16)
         #CV2 Windows
         namedWindow("rgb")
