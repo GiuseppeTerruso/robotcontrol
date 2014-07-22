@@ -15,11 +15,6 @@
 #
 #       Ludovico Russo
 
-
-
-
-
-
 import serial
 import time
 
