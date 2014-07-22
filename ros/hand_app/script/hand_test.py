@@ -39,7 +39,7 @@ class HandTestNode():
         state = 0
 
         msg = parloma();
-        while True:
+        while not rospy.is_shutdown():
             if state == 0:
                 msg.thumb = msg.thumb + 10
                 if msg.thumb > 170:

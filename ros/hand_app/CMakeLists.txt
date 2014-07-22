@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(hand)
+project(hand_app)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -81,7 +81,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES hand
+#  LIBRARIES hand_app
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -98,19 +98,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(hand
-#   src/${PROJECT_NAME}/hand.cpp
+# add_library(hand_app
+#   src/${PROJECT_NAME}/hand_app.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(hand_node src/hand_node.cpp)
+# add_executable(hand_app_node src/hand_app_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(hand_node hand_generate_messages_cpp)
+# add_dependencies(hand_app_node hand_app_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(hand_node
+# target_link_libraries(hand_app_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -129,7 +129,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS hand hand_node
+# install(TARGETS hand_app hand_app_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -154,7 +154,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_hand.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_hand_app.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
