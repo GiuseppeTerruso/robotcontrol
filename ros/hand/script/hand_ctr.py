@@ -26,19 +26,28 @@ import hand_control
 
 from hand_msgs.msg import parloma
 
-hand = hand_control.Hand('/dev/tty.usbmodem1411')
 
-def hand_msg_callback(hand_data):
-    rospy.loginfo(rospy.get_caller_id()+"%d", hand_data.thumb)
-    hand.set_all_position([hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0])
+class HandDriverNode():
+    def __init__(self):
+        # get parameters
+        self.port = rospy.get_param('~port', '/dev/ttyACM0');
+        self.topic = rospy.get_param('~topic', '/hand_topic');
 
-def hand_controll():
-    print 'init'
-    rospy.init_node('hand_driver', anonymous=True)
-    rospy.Subscriber("hand_topic", parloma, hand_msg_callback)
-    value = rospy.get_param('~port', '/dev/ttyACM0')
-    print value
-    rospy.spin()
+        # init topics
+        rospy.Subscriber(self.topic, parloma, self.hand_msg_callback)
+        self.hand = hand_control.Hand(self.port)
+
+        rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
+        rospy.spin()
+
+
+    def hand_msg_callback(self, hand_data):
+        hand_control = [hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0];
+        hand.set_all_position(hand_controll)
+
 
 if __name__ == '__main__':
-    hand_controll()
+    rospy.init_node('hand_driver', anonymous=True)
+    try:
+        ne = HandDriverNode()
+    except rospy.ROSInterruptException: pass
