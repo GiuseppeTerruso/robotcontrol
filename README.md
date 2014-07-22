@@ -21,6 +21,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+The PARLOMA project
+===========
+
+This repository refers to the PARLOMA project, which aims at developing
+a communication system for deafblind people, more information are available at
+
+    http://www.parloma.com
+
 Contributors
 ============
 Ludovico Orlando Russo, Ph.D. student, Politecnico di Torino
