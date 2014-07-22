@@ -39,26 +39,35 @@ class HandTestNode():
         state = 0
 
         msg = parloma();
+        msg.thumb = 10
+        msg.index = 10
+        msg.middle = 10
+        msg.ring = 10
+        msg.pinky= 10
+
+        pub.publish(msg)
+        r.sleep()
+        rospy.sleep(2.0)
         while not rospy.is_shutdown():
             if state == 0:
                 msg.thumb = msg.thumb + 10
-                if msg.thumb > 170:
+                if msg.thumb > 160:
                     state = 1
             elif state == 1:
                 msg.index= msg.index + 10
-                if msg.index > 170:
+                if msg.index > 160:
                     state = 2
             elif state == 2:
                 msg.middle= msg.middle+ 10
-                if msg.middle> 170:
+                if msg.middle> 160:
                     state = 3
             elif state == 3:
                 msg.ring = msg.ring + 10
-                if msg.ring > 170:
+                if msg.ring > 160:
                     state = 4
             elif state == 4:
                 msg.pinky= msg.pinky+ 10
-                if msg.pinky> 170:
+                if msg.pinky > 160:
                     state = 5
             elif state == 5:
                 msg.thumb = msg.thumb - 10
