@@ -18,17 +18,25 @@
 
 
 
-PACKAGE='hand_demo_node'
 # Import required Python code.
 import roslib
 import rospy
 import sys
 import hand_control
 
+from hand_msgs.msg import parloma
 
-def hand_demo_controll():
-    hand = hand_control.Hand('/dev/tty.usbmodem1411')
-    hand.demo_bulga()
+hand = hand_control.Hand('/dev/tty.usbmodem1411')
+
+def hand_msg_callback(hand_data):
+    rospy.loginfo(rospy.get_caller_id()+"%d", hand_data.thumb)
+    hand.set_all_position([hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0])
+
+def hand_controll():
+    print 'init'
+    rospy.init_node('hand_driver', anonymous=True)
+    rospy.Subscriber("hand_topic", parloma, hand_msg_callback)
+    rospy.spin()
 
 if __name__ == '__main__':
-    hand_demo_controll()
+    hand_controll()
