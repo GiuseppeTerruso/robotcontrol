@@ -36,6 +36,8 @@ def hand_controll():
     print 'init'
     rospy.init_node('hand_driver', anonymous=True)
     rospy.Subscriber("hand_topic", parloma, hand_msg_callback)
+    value = rospy.get_param('~port', '/dev/ttyACM0')
+    print value
     rospy.spin()
 
 if __name__ == '__main__':
