@@ -34,7 +34,7 @@ class HandDriverNode():
         self.topic = rospy.get_param('~topic', '/hand_topic');
 
         # init topics
-        rospy.Subscriber(self.topic, parloma, hand_msg_callback)
+        rospy.Subscriber(self.topic, parloma, self.hand_msg_callback)
         self.hand = hand_control.Hand(self.port)
 
         rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
@@ -43,7 +43,7 @@ class HandDriverNode():
 
     def hand_msg_callback(self, hand_data):
         hand_control = [hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0];
-        hand.set_all_position(hand_controll)
+        self.hand.set_all_position(hand_controll)
 
 
 if __name__ == '__main__':
