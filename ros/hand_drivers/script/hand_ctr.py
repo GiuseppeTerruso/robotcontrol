@@ -42,8 +42,8 @@ class HandDriverNode():
 
 
     def hand_msg_callback(self, hand_data):
-        hand_control = [hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0];
-        self.hand.set_all_position(hand_controll)
+        self.commands = [hand_data.index, hand_data.middle, hand_data.ring, hand_data.pinky, hand_data.thumb,  0];
+        self.hand.set_all_position(self.commands)
 
 
 if __name__ == '__main__':
