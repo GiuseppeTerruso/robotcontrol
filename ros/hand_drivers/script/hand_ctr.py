@@ -34,7 +34,7 @@ class HandDriverNode():
         self.topic = rospy.get_param('~topic', '/hand_topic');
 
         # init topics
-        rospy.Subscriber(self.topic, parloma, self.hand_msg_callback)
+        rospy.Subscriber(self.topic, parloma, hand_msg_callback)
         self.hand = hand_control.Hand(self.port)
 
         rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
