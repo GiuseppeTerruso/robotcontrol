@@ -35,7 +35,7 @@ class HandTestNode():
         pub = rospy.Publisher(self.topic, parloma)
 
         rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
-        r = rospy.Rate(10) # 10hz
+        r = rospy.Rate(20) # 10hz
         state = 0
 
         msg = parloma();
