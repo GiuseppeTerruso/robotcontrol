@@ -1,7 +1,7 @@
-robotcontrol
+Hand Robot Control Driver
 ============
 
-Libraries, scripts and Arduino code to control the robot hand
+ROS Library, Python Scripts and Arduino code to control the robot hand
 
 
 License
