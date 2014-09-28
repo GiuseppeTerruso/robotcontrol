@@ -62,5 +62,13 @@ class Hand:
         return self.serial_comm.read(num)
 
     def set_all_position(self, positions):
-        cmds = [255] + positions
+        cmds = [241] + positions
+        self.send_command(cmds)
+
+    def test(self):
+        cmds = [246]
+        self.send_command(cmds)
+
+    def set_finger_position(self, finger, position):
+        cmds = [242] + [finger, position]
         self.send_command(cmds)
