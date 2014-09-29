@@ -157,15 +157,15 @@ Motor motors[MOTOR_NUM];
 
 
 void allocate_motors() {
-  motors[thumb_flex].init(  8,   storeReset.reset[thumb_flex],  10,  170,  true);
-  motors[index_flex].init(  4,   storeReset.reset[index_flex],  10,  170,  true);
-  motors[middle_flex].init(  5,   storeReset.reset[middle_flex],  10,  170,  true);
-  motors[ring_flex].init(  3,   storeReset.reset[ring_flex],  10,  170,  false);
-  motors[pinky_flex].init(  6,   storeReset.reset[pinky_flex],  10,  180,  true);
-  motors[thumb_abd].init(  11,   storeReset.reset[thumb_abd],  10,  170,  true);
-  motors[index_abd].init(  2,   storeReset.reset[index_abd],  10,  170,  true);
-  motors[middle_abd].init(  12,   storeReset.reset[middle_abd],  10,  170,  true);
-  motors[wrist_1].init(  10,   storeReset.reset[wrist_1],  10,  170,  true);
+  motors[thumb_flex].init(  11,   storeReset.reset[thumb_flex],  10,  170,  true);
+  motors[index_flex].init(  9,   storeReset.reset[index_flex],  10,  170,  true);
+  motors[middle_flex].init(  2,   storeReset.reset[middle_flex],  10,  170,  true);
+  motors[ring_flex].init(  10,   storeReset.reset[ring_flex],  10,  170,  false);
+  motors[pinky_flex].init(  12,   storeReset.reset[pinky_flex],  10,  180,  true);
+  motors[thumb_abd].init(  3,   storeReset.reset[thumb_abd],  10,  170,  true);
+  motors[index_abd].init(  4,   storeReset.reset[index_abd],  30,  130,  true);
+  motors[middle_abd].init(  6,   storeReset.reset[middle_abd],  50,  100,  true);
+  motors[wrist_1].init(  5,   storeReset.reset[wrist_1],  10,  170,  true);
 }
 
 
