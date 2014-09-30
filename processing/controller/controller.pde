@@ -9,7 +9,7 @@ ControlP5 cp5;
 int myColorBackground = color(0,0,0);
 int knobValue = 100;
 
-int serialPortNumber = 3;
+int serialPortNumber = 0;
 
 Knob indice;
 Knob medio;
@@ -268,11 +268,37 @@ void performRest(){
   admedio(70);*/
 }
 
+void perform_a(){
+  /*
+  mignolo(180); 
+  delay(500);
+  anulare(180);
+  delay(500);
+  
+    indice(160);
+
+  pollice(170);
+  delay(500);
+  adindice(90);
+  delay(500);
+  adpollice(10);
+    delay(500);
+  medio(170);
+    delay(500);
+
+    delay(500);
+  polso(90);
+    delay(500);
+  admedio(70);
+  */
+}
+
 
 void keyPressed() {
   switch(key) {
     case('1'):serial.write(245);break;
     case('2'):serial.write(247);break;
     case('c'):serial.write(246);break;
+    case('a'):perform_a();break;
   } 
 }
