@@ -9,7 +9,7 @@ ControlP5 cp5;
 int myColorBackground = color(0,0,0);
 int knobValue = 100;
 
-int serialPortNumber = 3;
+int serialPortNumber = 0;
 
 Knob indice;
 Knob medio;
@@ -51,7 +51,7 @@ Knob adpollice;
 //X 40 70 45 160 90 90 160 90 90
 //Y 180 0 0 180 180 90 0 90 90
 
-int[][] signs = {{180,0,0,180,0,90,180,90,70},{0,180,180,0,180,100,90,90,90},{110,130,110,70,180,90,30,90,90},{35,180,0,180,0,90,30,90,90},{40,0,45,160,90,90,145,90,90},{90,40,180,0,180,90,150,90,90},{20,0,0,180,180,90,20,90,90},{180,180,0,180,0,90,0,90,90},{0,70,0,180,0,90,0,90,90},{180,180,0,180,0,90,0,90,90},{0,180,180,180,0,90,0,90,90},{0,180,180,180,0,90,0,120,60},{0,180,0,180,0,90,0,90,90},{40,70,45,160,90,90,160,90,90},{180,0,0,180,180,90,0,90,90}};
+//int[][] signs = {{180,0,0,180,0,90,180,90,70},{0,180,180,0,180,100,90,90,90},{110,130,110,70,180,90,30,90,90},{35,180,0,180,0,90,30,90,90},{40,0,45,160,90,90,145,90,90},{90,40,180,0,180,90,150,90,90},{20,0,0,180,180,90,20,90,90},{180,180,0,180,0,90,0,90,90},{0,70,0,180,0,90,0,90,90},{180,180,0,180,0,90,0,90,90},{0,180,180,180,0,90,0,90,90},{0,180,180,180,0,90,0,120,60},{0,180,0,180,0,90,0,90,90},{40,70,45,160,90,90,160,90,90},{180,0,0,180,180,90,0,90,90}};
 
 void setup() {
   println("Setup...");
@@ -60,6 +60,7 @@ void setup() {
   serial = new Serial(this, port, 9600);
   serial.clear();
   delay(2000);
+  serial.clear();
   println("Setup 1 done!");
   
   size(700,400);
@@ -112,28 +113,28 @@ void setup() {
    polso = cp5.addKnob("polso")
                .setRange(0,180)
                .setValue(90)
-               .setPosition(100,250)
+               .setPosition(400,250)
                .setRadius(50)
                .setDragDirection(Knob.VERTICAL)
                ;
    adindice = cp5.addKnob("adindice")
                .setRange(0,180)
                .setValue(90)
-               .setPosition(300,250)
+               .setPosition(200,250)
                .setRadius(50)
                .setDragDirection(Knob.VERTICAL)
                ;
     admedio = cp5.addKnob("admedio")
                .setRange(0,180)
                .setValue(90)
-               .setPosition(400,250)
+               .setPosition(300,250)
                .setRadius(50)
                .setDragDirection(Knob.VERTICAL)
                ;             
    adpollice = cp5.addKnob("adpollice")
                .setRange(0,180)
                .setValue(90)
-               .setPosition(200,250)
+               .setPosition(100,250)
                .setRadius(50)
                .setDragDirection(Knob.VERTICAL)
                ;   
@@ -268,11 +269,37 @@ void performRest(){
   admedio(70);*/
 }
 
+void perform_a(){
+  /*
+  mignolo(180); 
+  delay(500);
+  anulare(180);
+  delay(500);
+  
+    indice(160);
+
+  pollice(170);
+  delay(500);
+  adindice(90);
+  delay(500);
+  adpollice(10);
+    delay(500);
+  medio(170);
+    delay(500);
+
+    delay(500);
+  polso(90);
+    delay(500);
+  admedio(70);
+  */
+}
+
 
 void keyPressed() {
   switch(key) {
     case('1'):serial.write(245);break;
     case('2'):serial.write(247);break;
     case('c'):serial.write(246);break;
+    case('a'):perform_a();break;
   } 
 }
