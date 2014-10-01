@@ -23,6 +23,7 @@
 
 # Contributors:
 #     Ludovico O. Russo (ludovico.russo@polito.it)
+#	  Giuseppe Airo' Farulla
 
 # PARLOMA hand driver
 
@@ -58,8 +59,14 @@ class Hand:
             print 'Communication Opened!'
         else:
             print 'Error: impossible to establish communication!'
+        self.serial_comm.flushInput()
+        self.serial_comm.flushOutput()
 
     def __del__(self):
+        self.perform_rest2()
+        time.sleep(5)
+        self.serial_comm.flushInput()
+        self.serial_comm.flushOutput()
         self.serial_comm.close()
         print 'Communication Closed!'
 
@@ -99,56 +106,100 @@ class Hand:
 
     def perform_a(self):
         for joint in ['little', 'ring', 'middle', 'index', 'thumb']:
-            self.set_finger_position(joint, 180)
-
+            self.set_finger_position(joint, 0)
 
     def perform_b(self):
-        time.sleep(1)
+        self.set_finger_position('thumb_a', 180)
+        self.set_finger_position('thumb', 0)
+        self.set_finger_position('wrist', 150)
 
     def perform_c(self):
-        time.sleep(1)
+        self.set_finger_position('thumb', 90)
+        self.set_finger_position('index', 65)
+        self.set_finger_position('middle', 75)
+        self.set_finger_position('middle_a', 20)
+        self.set_finger_position('ring', 80)
+        self.set_finger_position('little', 165)
 
     def perform_d(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'middle']:
+            self.set_finger_position(joint, 0)
+        self.set_finger_position('index_a', 180)
+        self.set_finger_position('thumb', 90)
 
     def perform_f(self):
-        time.sleep(1)
-
-    def perform_h(self):
-        time.sleep(1)
+        self.set_finger_position('index', 40)
+        self.set_finger_position('thumb_a', 100)
+        self.set_finger_position('thumb', 55)
 
     def perform_i(self):
-        time.sleep(1)
+        for joint in ['ring', 'middle', 'index', 'thumb']:
+            self.set_finger_position(joint, 0)
 
     def perform_l(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'middle', 'thumb_a']:
+            self.set_finger_position(joint, 0)
 
     def perform_o(self):
-        time.sleep(1)
+        self.set_finger_position('little', 130)
+        self.set_finger_position('ring', 60)
+        self.set_finger_position('middle', 40)
+        self.set_finger_position('index', 20)
+        self.set_finger_position('thumb', 80)
+        self.set_finger_position('thumb_a', 180)
 
     def perform_r(self):
+        self.set_finger_position('index', 180)
+        self.set_finger_position('index_a', 50)
         time.sleep(1)
+        self.set_finger_position('middle_a', 180)
+        self.set_finger_position('middle', 130)
+        time.sleep(1)
+        self.set_finger_position('index', 160)
+        for joint in ['little', 'ring', 'thumb']:
+            self.set_finger_position(joint, 0)
+        # da verificare -> ci va una transizione per rest?!
 
     def perform_s(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'middle', 'index', 'thumb_a']:
+            self.set_finger_position(joint, 0)
 
     def perform_u(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'thumb', 'index_a', 'thumb_a']:
+            self.set_finger_position(joint, 0)
+        self.set_finger_position('middle_a', 75)
 			
     def perform_v(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'thumb', 'middle_a', 'thumb_a']:
+            self.set_finger_position(joint, 0)
+        self.set_finger_position('index_a', 180)
 
     def perform_w(self):
-        time.sleep(1)
+        for joint in ['little', 'thumb', 'thumb_a']:
+            self.set_finger_position(joint, 0)
+        self.set_finger_position('middle_a', 40)
+        self.set_finger_position('index_a', 180)
 
     def perform_x(self):
-        time.sleep(1)
+        for joint in ['little', 'ring', 'middle', 'thumb']:
+            self.set_finger_position(joint, 0)
+        self.set_finger_position('index_a', 180)
+        self.set_finger_position('index', 100)
 
     def perform_y(self):
-        time.sleep(1)
+        for joint in ['ring', 'middle', 'index', 'thumb_a']:
+            self.set_finger_position(joint, 0)
 
     def perform_rest2(self):
-        time.sleep(1)
+        self.set_finger_position('thumb', 180)
+        self.set_finger_position('thumb_a', 70)
+        self.set_finger_position('index', 180)
+        self.set_finger_position('index_a', 90)
+        self.set_finger_position('middle', 180)
+        self.set_finger_position('middle_a', 50)
+        self.set_finger_position('ring', 180)
+        self.set_finger_position('little', 180)
+        self.set_finger_position('wrist', 120)
 
 
     SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
@@ -164,9 +215,10 @@ class Hand:
 
 if __name__=="__main__":
     hand = Hand('/dev/ttyACM0')
+    time.sleep(5)
 
     #for msg in hand.SIGN_LIST:
-    for msg in ['A']:
+    for msg in ['A','R']:
         hand.perform_rest2()
         #print 'Performin Sign ' + msg
         time.sleep(2)

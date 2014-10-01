@@ -5,6 +5,7 @@ import numpy
 import glob
 from collections import Counter
 from sklearn.cross_validation import *
+import sys
 
 #Our novel second classification layer
 def joints2dist(joints):
@@ -38,17 +39,20 @@ def create_patterns(paths):
 def create_labels(paths):
 	Y = []
 	for p in paths:
-		#Y.append(p.split('/')[3])
-		Y.append(p.split('/')[9])
+		Y.append(p.split('/')[9][0])
 	return Y
 
 #Training against patterns (input data) and a priori labels (Y)
 def train_obj(path_training_set, classifier_obj):
-	paths = glob.glob(path_training_set+'*/*/*.xml')
+	paths = []
+	SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S1','U','V','W','X','Y']
+	for sign in SIGN_LIST:
+		paths += glob.glob(path_training_set+'*/'+sign+'/*.xml')
 	X = create_patterns(paths)
 	Y = create_labels(paths)
 
 	print Counter(Y)
+	#print Y
 
 	classifier_obj = classifier_obj.fit(X,Y)
 	return classifier_obj
@@ -317,3 +321,7 @@ def cross_test_objXY(path_test, classifier_obj, X, Y):#classifier NOT already fi
 			print "\n%10s\t\t%d/%d\t\t\t%0.2f%s\n\n" % (key, result[key]['correct'], partial, float(result[key]['correct'])/partial*100, '%')
 		else:
 			return
+
+if __name__=="__main__":
+	train_obj(sys.argv[1], '')
+

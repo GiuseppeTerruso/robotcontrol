@@ -1,0 +1,250 @@
+function send_commands(cmds, s)
+
+    cmds2send = '';
+    [m,n] = size(cmds);
+    for i = 1:m
+        for j = 1:n
+            cmds2send = strcat(cmds2send, char(cmds[i][j]));
+        end
+    end
+    fwrite(s, cmds2send);
+
+
+function move_finger_middle(finger, pos, s)
+        %if (finger in self.finger_set and pos in self.command_set):
+    
+    global finger_set command_set
+
+	cmds = [0]*3;
+    cmds[0] = START_BIT_MIDDLE;
+    cmds[1] = finger_set[finger];
+    cmds[2] = command_set[pos];
+    send_commands(cmds, s);
+
+
+function perform_sign(msg, s)
+    
+    %ToDo: These should be constant values	
+    THUMB = 0x01;
+    INDEX = 0x02;
+    MIDDLE = 0x03;
+    RING = 0x04;
+    LITTLE = 0x05;
+    THUMB_O = 0x06;
+    START_BIT = 0b10000000;
+    START_BIT_GET = 0b01000101;
+    %Middle stands for 'in the middle btw open and close', does NOT refer to the middle finger
+    START_BIT_MIDDLE = 0b01000100;  
+    
+    global finger_set command_set
+
+    finger_set = {'thumb':THUMB, 'index':INDEX, 'middle':MIDDLE, 'ring':RING, 'little':LITTLE, 'thumb_o': THUMB_O};
+    command_set = {'open':0b01000000, 'close':0, 'middle1':0b10000000, 'middle2':0b01000000, 'middle3':0b11000000, 'middle4':0b10111000, 'middle5':0b01110000, 'middle6':0b01001000, 'middle_close':0b11111111, 'middle_open':0b00000000};
+
+    switch lowercase(msg)
+    case 'a'
+		move_finger_middle('index', 'middle_close', s);
+		move_finger_middle('middle', 'middle_close', s);
+		move_finger_middle('ring', 'middle_close', s);
+		move_finger_middle('little', 'middle_close', s);
+		pause(1)
+		move_finger_middle('thumb', 'middle_close', s);
+		move_finger_middle('thumb_o', 'middle_open', s);
+
+    case 'b'
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_open', s);
+        move_finger_middle('ring', 'middle_open', s);
+        move_finger_middle('little', 'middle_open', s);
+
+    case 'c'
+        move_finger_middle('thumb', 'middle1', s);
+        move_finger_middle('thumb_o', 'middle2', s);
+        move_finger_middle('index', 'middle1', s);
+        move_finger_middle('middle', 'middle1', s);
+        move_finger_middle('ring', 'middle1', s);
+        move_finger_middle('little', 'middle6', s);
+
+    case 'd'
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+
+    case 'f'
+        move_finger_middle('thumb', 'middle4', s);
+        move_finger_middle('thumb_o', 'middle4', s);
+        move_finger_middle('index', 'middle_close', s);
+        move_finger_middle('middle', 'middle_open', s);
+        move_finger_middle('ring', 'middle_open', s);
+        move_finger_middle('little', 'middle_open', s);
+
+    case 'h'
+        move_finger_middle('index', 'middle2', s);
+        move_finger_middle('middle', 'middle1', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+        pause(1)
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+
+    case 'i'
+        move_finger_middle('index', 'middle_close', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_open', s);
+        pause(1)
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+
+    case 'k'
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle4', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+        pause(1)
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_open', s);
+
+    case 'l'
+        move_finger_middle('thumb', 'middle_open', s);
+        move_finger_middle('thumb_o', 'middle_open', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+
+    case 'o'
+        move_finger_middle('thumb', 'middle3', s);
+        move_finger_middle('thumb_o', 'middle1', s);
+        move_finger_middle('index', 'middle4', s);
+        move_finger_middle('middle', 'middle1', s);
+        move_finger_middle('ring', 'middle1', s);
+        move_finger_middle('little', 'middle6', s);
+
+    case 'p'
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+        pause(1)
+        move_finger_middle('index', 'middle1', s);
+        move_finger_middle('middle', 'middle3', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+
+    case 's'
+        move_finger_middle('thumb', 'middle_open', s);
+        move_finger_middle('thumb_o', 'middle_open', s);
+        move_finger_middle('index', 'middle_close', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+			
+    case 'v'
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_open', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+
+    case 'w'
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_open', s);
+        move_finger_middle('ring', 'middle_open', s);
+        move_finger_middle('little', 'middle_close', s);
+
+    case 'x'
+        move_finger_middle('index', 'middle5', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_close', s);
+        pause(1)
+        move_finger_middle('thumb', 'middle_close', s);
+        move_finger_middle('thumb_o', 'middle_close', s);
+
+    case 'y'
+        move_finger_middle('thumb', 'middle_open', s);
+        move_finger_middle('thumb_o', 'middle_open', s);
+        move_finger_middle('index', 'middle_close', s);
+        move_finger_middle('middle', 'middle_close', s);
+        move_finger_middle('ring', 'middle_close', s);
+        move_finger_middle('little', 'middle_open', s);
+
+    otherwise
+        move_finger_middle('thumb', 'middle_open', s);
+        move_finger_middle('thumb_o', 'middle_open', s);
+        move_finger_middle('index', 'middle_open', s);
+        move_finger_middle('middle', 'middle_open', s);
+        move_finger_middle('ring', 'middle_open', s);
+        move_finger_middle('little', 'middle_open', s);
+    end
+
+
+function hand(step_motion)
+
+%
+% HAND
+% ------------
+% This function make differents steps. It takes one letter at time from a
+% word written. For each letter finds the relative informations thanks to the  
+% function find_letter. After this it calls motion function that provvides
+% for the motion in v-rep.
+%
+% SYNTAX:
+% hand(step_motion)
+% 
+% INPUT:
+% - step_motion: is a variable that establishes if the movement of the hand
+%                has to be continuos or not
+%          
+
+
+% global variables
+global word no_letter time N s;
+
+% compute some movements
+q_temp = zeros(5,4);
+w_temp = zeros(3,1);
+for index_l = 1:length(word)
+    if (word(index_l) == ' ')
+        pause(time);
+        show_letter(no_letter);
+        [q_temp,w_temp] = motion(zeros(5,4), zeros(3,1), q_temp, w_temp, N);
+        perform_sign('REST', s);
+    else
+        [q, w, coord, found] = find_letter(word(index_l));
+        if (found)
+            show_letter(coord);
+            % execute letter
+            [q_temp,w_temp] = motion(q, w(:,1), q_temp, w_temp, N);
+            if (size(w,2) > 1)
+                for index_2 = 2:size(w,2)
+                    [q_temp,w_temp] = motion(q, w(:,index_2), q_temp, w_temp, N);
+                end
+            end
+
+            perform_sign(upper(word(index_l)), s);
+
+            pause(time);
+            % open hand
+            if (not(step_motion))
+                show_letter(no_letter);
+                [q_temp,w_temp] = motion(zeros(5,4), zeros(3,1), q_temp, w_temp, N);
+            end
+        else
+            show_letter(no_letter);
+            motion(zeros(5,4), zeros(3,1), q_temp, w_temp, N);
+            perform_sign('REST', s);
+            return;
+        end
+    end 
+end
+show_letter(no_letter);
+motion(zeros(5,4), zeros(3,1), q_temp, w_temp, N);
+end
