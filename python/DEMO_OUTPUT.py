@@ -63,8 +63,8 @@ SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
 #Communication Parameters
 PASSCODE = 'PARLOMA3'*2
 SIGN_WINDOW_NUMBER = 5
-IP = 'localhost'
-#IP = '10.10.0.1'
+#IP = 'localhost'
+IP = '10.10.0.1'
 #PORT = 8089
 PORT = 9091
 MSGLEN = 88
