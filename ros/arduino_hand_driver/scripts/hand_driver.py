@@ -32,37 +32,30 @@ import rospy
 import sys
 
 from serial_bridge.msg import generic_serial
-import serial
+from std_msgs.msg import String
 
-class SerialBridge():
+class HandDriver():
+    def sign_callback(self, sign):
+        if sign.data == 'a':
+            msg = generic_serial()
+            msg.msg = [244, 20]
+            self.serial_pub.publish(msg)
+
     def __init__(self):
         # get parameters
-        self.port = rospy.get_param('~port', '/dev/ttyACM0');
-        self.baudrate= rospy.get_param('~baudrate', '9600');
-        self.topic = rospy.get_param('~topic', '/serial_topic');
-
-        self.serial_comm = serial.Serial(port=self.port, baudrate=self.baudrate)
-        if (self.serial_comm.isOpen()):
-            print 'Communication Opened!'
-        else:
-            print 'Error: impossible to establish communication!'
-        self.serial_comm.flushInput()
-        self.serial_comm.flushOutput()
+        self.input_topic = rospy.get_param('~input_topic', '/sign_topic');
+        self.output_topic = rospy.get_param('~output_topic', '/serial_topic');
 
         # init topics
-        rospy.Subscriber(self.topic, generic_serial, self.serial_callback)
+        rospy.Subscriber(self.input_topic, String, self.sign_callback)
+        self.serial_pub = rospy.Publisher(self.output_topic, generic_serial, queue_size=10)
 
         rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
         rospy.spin()
 
-    def serial_callback(self, serial_data):
-        serial_msgs = []
-        for ch in serial_data.msg:
-            serial_msgs.append(ch)
-        self.serial_comm.write(serial_msgs)
-
+  
 if __name__ == '__main__':
-    rospy.init_node('serial_bridge', anonymous=True)
+    rospy.init_node('arduino_hand_driver', anonymous=True)
     try:
-        ne = SerialBridge()
+        ne = HandDriver()
     except rospy.ROSInterruptException: pass
