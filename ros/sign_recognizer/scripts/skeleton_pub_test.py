@@ -11,7 +11,8 @@ rospy.init_node('skeleton_pubs')
 r = rospy.Rate(10) # 10hz
 while not rospy.is_shutdown():
     data = hand_skeleton()
-    pi = Point(1,2,3)
-    data.joints = [pi, Point(2,3,4)]
+    for i in range(0,22):
+        pi = Point(1,2,3)
+        data.joints.append(pi)
     pub.publish(data)
     r.sleep()

@@ -27,39 +27,58 @@
 #	Ludovico O. Russo (ludovico.russo@polito.it)
 
 
-
-
 import rospy
 from std_msgs.msg import String
 from hand_msgs.msg import hand_skeleton
 from sklearn.externals import joblib
+from math import sqrt, pow
+import numpy as np
+from std_msgs.msg import String
 
-
+signs= ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
 
 class SignClassifier:
     def __init__(self, forest_file):
-        clf = joblib.load(forest_file)
+        self.clf = joblib.load(forest_file)
+
+    def classify_skeleton(self, jointsdists):
+        prob = self.clf.predict_proba(jointsdists)
+        mm = prob.argmax()
+        signRecogIndex = signs[mm]
+        prob = prob[0][mm]
+        return signRecogIndex, prob
 
 
 class SignClassifierNode:
     def __init__(self):
         rospy.init_node('sing_recoignizer', anonymous=True)
-        self.classifier = SignClassifier('test')
-        rospy.Subscriber("skeleton_topic", hand_skeleton, self.callback_skeleton)
+        self.classifier = SignClassifier('/Users/ludus/Downloads/RF64/forest-2layerint-x64.pkl')
+        rospy.Subscriber("/skeleton", hand_skeleton, self.callback_skeleton)
+        pub = rospy.Publisher('/signs_topic', String, queue_size=10)
         rospy.spin()
 
-    def classify_skeleton(self, joints):
-        prob = clf.predict_proba([joints2dist(joints)])
-        mm = prob.argmax()
-        signRecog = signs[mm]
-        prob = prob[0][mm]
+    def classify_skeleton(self, joints_dists):
+        signRecogIndex, prob = self.classifier.classify_skeleton(joints_dists)
+        return signs[signRecogIndex], prob
 
 
     def callback_skeleton(self, data):
         rospy.loginfo(rospy.get_caller_id() + "skeleton: ")
-        print data.joints
+        jointdists = self.joints2dist(data.joints)
+        sign, prob = elf.classify_skeleton(jointdists)
+        if (prob > 0.3):
+            pub.Publish(sign)
 
-    
+
+    def joints2dist(self, joints):
+        dists = []
+        for i in range(0,len(joints)):
+            for j in range(i+1,len(joints)):
+                d = sqrt(pow(joints[i].x - joints[j].x,2) + pow(joints[i].y - joints[j].y,2) + pow(joints[i].z - joints[j].z,2))
+                dists.append(d)
+        return np.array(dists)
+
+
 if __name__ == '__main__':
     SignClassifierNode()
 
