@@ -1,2 +1,2 @@
 Header header
-geometry_msgs/Point32 joints
+geometry_msgs/Point[] joints
