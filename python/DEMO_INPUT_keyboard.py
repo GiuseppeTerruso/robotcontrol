@@ -138,10 +138,10 @@ if __name__=="__main__":
         #Sign to be performed - shown for 5 seconds ca. after tracker is acquired
         sign = lista[i]
         print("Perform sign %s\n"%sign)
-        image = imread(".."+sep+"signs reduced set"+sep+sign+".png")
+        # image = imread(".."+sep+"signs reduced set"+sep+sign+".png")
 
         for j in range(0,50):
-            imshow("segno", image)
+            # imshow("segno", image)
             k = waitKey(1)
 
         signRecog = sign

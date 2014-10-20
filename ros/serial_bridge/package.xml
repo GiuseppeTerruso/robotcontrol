@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>hand_driver</name>
+  <name>serial_bridge</name>
   <version>0.6.0</version>
   <description>The hand_driver package
     this package provides a driver node to controll the roboti hand
