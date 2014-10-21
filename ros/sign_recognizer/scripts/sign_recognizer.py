@@ -54,8 +54,8 @@ class SignClassifierNode:
         rospy.init_node('sing_recoignizer', anonymous=True)
 
         self.classifier_path = rospy.get_param('~classifier', 'forest-2layer.pkl')
-        self.signs_topic = rospy.get_param('~signs_topic','/signs_topic')
-        self.skeleton_topic = rospy.get_param('~skeleton_topic','/skeleton')
+        self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
+        self.skeleton_topic = rospy.get_param('skeleton_topic','/skeleton')
 
         self.classifier = SignClassifier(self.classifier_path)
         rospy.Subscriber(self.skeleton_topic, hand_skeleton, self.callback_skeleton)

@@ -39,7 +39,7 @@ class SerialBridge():
         # get parameters
         self.port = rospy.get_param('~port', '/dev/ttyACM0');
         self.baudrate= rospy.get_param('~baudrate', '9600');
-        self.topic = rospy.get_param('~topic', '/serial_topic');
+        self.topic = rospy.get_param('serial_topic', '/serial_topic');
 
         self.serial_comm = serial.Serial(port=self.port, baudrate=self.baudrate)
         if (self.serial_comm.isOpen()):

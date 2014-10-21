@@ -57,8 +57,8 @@ class HandDriver():
 
     def __init__(self):
         # get parameters
-        self.input_topic = rospy.get_param('~signs_topic', '/signs_topic');
-        self.output_topic = rospy.get_param('~serial_topic', '/serial_topic');
+        self.input_topic = rospy.get_param('signs_topic', '/signs_topic');
+        self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
 
         # init topics
         rospy.Subscriber(self.input_topic, String, self.sign_callback)
