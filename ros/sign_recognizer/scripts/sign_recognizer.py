@@ -52,22 +52,27 @@ class SignClassifier:
 class SignClassifierNode:
     def __init__(self):
         rospy.init_node('sing_recoignizer', anonymous=True)
-        self.classifier = SignClassifier('/Users/ludus/Downloads/RF64/forest-2layerint-x64.pkl')
-        rospy.Subscriber("/skeleton", hand_skeleton, self.callback_skeleton)
-        pub = rospy.Publisher('/signs_topic', String, queue_size=10)
+
+        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer.pkl')
+        self.signs_topic = rospy.get_param('~signs_topic','/signs_topic')
+        self.skeleton_topic = rospy.get_param('~skeleton_topic','/skeleton')
+
+        self.classifier = SignClassifier(self.classifier_path)
+        rospy.Subscriber(self.skeleton_topic, hand_skeleton, self.callback_skeleton)
+        self.pub = rospy.Publisher(self.signs_topic, String, queue_size=10)
         rospy.spin()
 
     def classify_skeleton(self, joints_dists):
         signRecogIndex, prob = self.classifier.classify_skeleton(joints_dists)
-        return signs[signRecogIndex], prob
+        return signRecogIndex, prob
 
 
     def callback_skeleton(self, data):
         rospy.loginfo(rospy.get_caller_id() + "skeleton: ")
         jointdists = self.joints2dist(data.joints)
-        sign, prob = elf.classify_skeleton(jointdists)
+        sign, prob = self.classify_skeleton(jointdists)
         if (prob > 0.3):
-            pub.Publish(sign)
+            self.pub.publish(sign)
 
 
     def joints2dist(self, joints):

@@ -32,43 +32,46 @@ MAX_POSES = 160
 
 
 if __name__=="__main__":
+    rospy.init_node('skeleton_node', anonymous=True)
+    namedWindow("rgb")
+    namedWindow("masc")
+    namedWindow("segno")
+    #OpenNi tracker and Cypher Initialization
 
-        rospy.init_node('skeleton_node', anonymous=True)
-        namedWindow("rgb")
-        namedWindow("masc")
-        namedWindow("segno")
-        #OpenNi tracker and Cypher Initialization
-        recog = PyPoseRecognizer(22, WIDTH, HEIGHT,
-                                 '/Users/ludus/develop/parloma/rc2/RF/forest-1layer.xml',
-                                 USE_CPU, 320)
-        grabber = PyOpenNIHandGrabber()
+    forest_file = rospy.get_param('~forest', 'forest-1layer.xml')
+    skeleton_topic = rospy.get_param('~skeleton_topic', '/skeleton')
 
-        pub = rospy.Publisher('/skeleton', hand_skeleton, queue_size=10)
-        #OpenNi wave to start tracking
+    recog = PyPoseRecognizer(22, WIDTH, HEIGHT,
+                             forest_file,
+                             USE_CPU, 320)
+    grabber = PyOpenNIHandGrabber()
+
+    pub = rospy.Publisher(skeleton_topic, hand_skeleton, queue_size=10)
+    #OpenNi wave to start tracking
+    while not rospy.is_shutdown():
+        print("Wave the hand in front of the sensor \n")
         while True:
-            print("Wave the hand in front of the sensor \n")
-            while True:
-                rgb, depth = grabber.grabFrames()
-                pos = grabber.getHand3DPos() 
-                if len(pos) > 2:
-                    if pos[0] or pos[1] or pos[2]:
-                        break
-            while True:
-                rgb, depth = grabber.grabFrames()
-                pos = grabber.getHand3DPos() 
-                if len(pos) <= 2:
+            rgb, depth = grabber.grabFrames()
+            pos = grabber.getHand3DPos()
+            if len(pos) > 2:
+                if pos[0] or pos[1] or pos[2]:
                     break
-                mask = grabber.segment(depth, pos, RADIUS)
-                prediction = recog.predict(depth, mask)
-                joints = recog.getJoints(depth, mask)
+        while not rospy.is_shutdown():
+            rgb, depth = grabber.grabFrames()
+            pos = grabber.getHand3DPos()
+            if len(pos) <= 2:
+                break
+            mask = grabber.segment(depth, pos, RADIUS)
+            prediction = recog.predict(depth, mask)
+            joints = recog.getJoints(depth, mask)
 
-                imshow("rgb", cvtColor(rgb, COLOR_RGB2BGR))
-                imshow("masc", mask)
-                k = waitKey(100)
-                print joints
+            imshow("rgb", cvtColor(rgb, COLOR_RGB2BGR))
+            imshow("masc", mask)
+            k = waitKey(100)
+            # print joints
 
-                msg = hand_skeleton()
-                for j in joints:
-                    msg.joints.append(Point(j[0], j[1],j[2]))
-                pub.publish(msg)
+            msg = hand_skeleton()
+            for j in joints:
+                msg.joints.append(Point(j[0], j[1],j[2]))
+            pub.publish(msg)
 

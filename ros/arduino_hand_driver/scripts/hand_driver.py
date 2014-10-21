@@ -34,17 +34,31 @@ import sys
 from serial_bridge.msg import generic_serial
 from std_msgs.msg import String
 
+
+MOVE_ALL_CMD = 241
+
 class HandDriver():
     def sign_callback(self, sign):
-        if sign.data == 'a':
+        if sign.data == 'U':
             msg = generic_serial()
             msg.msg = [244, 20]
             self.serial_pub.publish(msg)
+        elif sign.data == 'V':
+            msg = generic_serial()
+            msg.msg = [244, 21]
+            self.serial_pub.publish(msg)
+        else:
+            self.send_rest()
+
+    def send_rest(self):
+        msg = generic_serial()
+        msg.msg = [MOVE_ALL_CMD, 180, 180, 180, 180, 180, 70, 90 ,50 ,120]
+        self.serial_pub.publish(msg)
 
     def __init__(self):
         # get parameters
-        self.input_topic = rospy.get_param('~input_topic', '/sign_topic');
-        self.output_topic = rospy.get_param('~output_topic', '/serial_topic');
+        self.input_topic = rospy.get_param('~signs_topic', '/signs_topic');
+        self.output_topic = rospy.get_param('~serial_topic', '/serial_topic');
 
         # init topics
         rospy.Subscriber(self.input_topic, String, self.sign_callback)
@@ -53,7 +67,6 @@ class HandDriver():
         rospy.loginfo(rospy.get_caller_id()+ " Node Initialized")
         rospy.spin()
 
-  
 if __name__ == '__main__':
     rospy.init_node('arduino_hand_driver', anonymous=True)
     try:
