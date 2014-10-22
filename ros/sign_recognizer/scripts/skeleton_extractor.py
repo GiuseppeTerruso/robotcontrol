@@ -56,7 +56,6 @@ class SkeletonTrackerNode:
             return False
 
         self.mask = self.grabber.segment(self.depth, pos, RADIUS)
-        # prediction = recog.predict(self.depth, self.mask)
         joints = self.recog.getJoints(self.depth, self.mask)
 
         self.pub_skeleton(joints)
@@ -80,8 +79,6 @@ class SkeletonTrackerNode:
         for j in joints:
             msg.joints.append(Point(j[0], j[1],j[2]))
         self.skeleton_pub.publish(msg)
-
-
 
 
 if __name__=="__main__":

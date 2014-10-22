@@ -39,13 +39,9 @@ MOVE_ALL_CMD = 241
 
 class HandDriver():
     def sign_callback(self, sign):
-        if sign.data == 'U':
+        if sign.data == 'V':
             msg = generic_serial()
-            msg.msg = [244, 20]
-            self.serial_pub.publish(msg)
-        elif sign.data == 'V':
-            msg = generic_serial()
-            msg.msg = [244, 21]
+            msg.msg = [MOVE_ALL_CMD, 10, 180, 180, 10, 10, 70, 90 ,50 ,120]
             self.serial_pub.publish(msg)
         else:
             self.send_rest()

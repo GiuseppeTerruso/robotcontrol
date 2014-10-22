@@ -37,7 +37,7 @@ import serial
 class SerialBridge():
     def __init__(self):
         # get parameters
-        self.port = rospy.get_param('~port', '/dev/ttyACM0');
+        self.port = rospy.get_param('~port', '/dev/tty.usbmodem1421');
         self.baudrate= rospy.get_param('~baudrate', '9600');
         self.topic = rospy.get_param('serial_topic', '/serial_topic');
 
