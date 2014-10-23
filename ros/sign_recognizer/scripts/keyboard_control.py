@@ -39,8 +39,8 @@ class KeyboardNode:
 
         self.pub = rospy.Publisher(self.signs_topic, String, queue_size=10)
         while not rospy.is_shutdown():
-            something = raw_input()
-            for l in something:
+            phrase = raw_input()
+            for l in phrase :
                 self.pub.publish(l)
                 rospy.sleep(1.0)
 
