@@ -61,12 +61,17 @@ class HandDriver():
         self.serial_pub.publish(msg)
 
     def __init__(self):
-        self.ps = parser_signs('/Users/ludus/Desktop/XML/robot_hand_Bulga.xml', '/Users/ludus/Desktop/XML/signs2pose.xml')
-        self.pc = parser_command('/Users/ludus/Desktop/XML/commands_list.xml')
 
         # get parameters
         self.input_topic = rospy.get_param('signs_topic', '/signs_topic');
         self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
+
+        self.xml_hand = rospy.get_param('xml_hand', 'hand.xml')
+        self.xml_signs = rospy.get_param('xml_signs', 'signs.xml')
+        self.xml_commands = rospy.get_param('xml_commands', 'commands.xml')
+
+        self.ps = parser_signs(self.xml_hand, self.xml_signs)
+        self.pc = parser_command(self.xml_commands)
 
         # init topics
         rospy.Subscriber(self.input_topic, String, self.sign_callback)
