@@ -34,17 +34,26 @@ import sys
 from serial_bridge.msg import generic_serial
 from std_msgs.msg import String
 
+from sign_parser.parser_signs import parser_signs
+from sign_parser.parser_command import parser_command
+
+
 
 MOVE_ALL_CMD = 241
 
 class HandDriver():
     def sign_callback(self, sign):
-        if sign.data == 'V':
-            msg = generic_serial()
-            msg.msg = [MOVE_ALL_CMD, 10, 180, 180, 10, 10, 70, 90 ,50 ,120]
-            self.serial_pub.publish(msg)
-        else:
+        cmds = self.ps.parse([sign.data])
+        if len(cmds) == 0:
             self.send_rest()
+        else:
+            for cmd in cmds:
+                msg = generic_serial()
+                msg.msg = [self.pc.parse(['set_all_motors'])[0]]
+                for c in cmd:
+                    msg.msg.append(cmd[c])
+                self.serial_pub.publish(msg)
+                rospy.sleep(0.5)
 
     def send_rest(self):
         msg = generic_serial()
@@ -52,6 +61,9 @@ class HandDriver():
         self.serial_pub.publish(msg)
 
     def __init__(self):
+        self.ps = parser_signs('/Users/ludus/Desktop/XML/robot_hand_Bulga.xml', '/Users/ludus/Desktop/XML/signs2pose.xml')
+        self.pc = parser_command('/Users/ludus/Desktop/XML/commands_list.xml')
+
         # get parameters
         self.input_topic = rospy.get_param('signs_topic', '/signs_topic');
         self.output_topic = rospy.get_param('serial_topic', '/serial_topic');

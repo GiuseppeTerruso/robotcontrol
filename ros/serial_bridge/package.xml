@@ -2,8 +2,9 @@
 <package>
   <name>serial_bridge</name>
   <version>0.6.0</version>
-  <description>The hand_driver package
-    this package provides a driver node to controll the roboti hand
+  <description>The serial_bridge package
+    This Package provides a common interface for controlling generic devices from 
+    Serial communication.
   </description>
   <maintainer email="ludovico.russo@polito.it">Ludovico O. Russo</maintainer>
   <author email="ludovico.russo@polito.it">Ludovico O. Russo</author>
@@ -11,7 +12,7 @@
 
 
 
-   <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>

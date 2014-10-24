@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2014 Politecnico di Torino
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+    This software is developed within the PARLOMA project, which aims
+    at developing a communication system for deaf-blind people (www.parloma.com)
+    The PARLOMA project is developed within the Turin node of AsTech laboratories
+    network sponsored by Consorzio Interuniversitario Nazionale di Informatica
+	 (CINI, www.consorzio-cini.it, www.consorzio-cini.it/index.php/en/lab-astech)
+
+    Contributors:
+        Giuseppe Airò Farulla (giuseppe.airofarulla@polito.it)
+-->
+
+<!-- This xml refers to the schema for 3D-printed PARLOMA right hand developed by Andrea Bulgarelli. -->
+<robot>
+	<information type="array">
+		<!-- For each joint, we need to know if it is implemented in the robot, its working range (in percentage from 0 to 1), 
+			 its rest position (only for ab-adduction or in any case when the joint working range is from -1 to 1) 
+			 and where it is located with respect to the others 
+			 (i.e., which is the code to which we have to send the commands for that joint).
+			 For MCP, rest position is intended as finger totally extended, for thumb is intended as finger parallel to the others.
+        -->
+		<value>implemented</value>
+		<value>minrange</value>
+		<value>maxrange</value>
+		<value>restposition</value>
+		<value>code</value>
+	</information>
+
+	<hands>
+		<joints type="array">
+			<!-- This array specifies the joints we are taking into consideration for each hand. -->
+			<value>thumb_PIP</value>
+			<value>thumb_MCP</value>
+			<value>thumb_MCP_A</value>
+			<value>pinky_PIP</value>
+			<value>pinky_MCP</value>
+			<value>pinky_MCP_A</value>
+			<value>ring_PIP</value>
+			<value>ring_MCP</value>
+			<value>ring_MCP_A</value>
+			<value>middle_PIP</value>
+			<value>middle_MCP</value>
+			<value>middle_MCP_A</value>
+			<value>index_PIP</value>
+			<value>index_MCP</value>
+			<value>index_MCP_A</value>
+			<value>thumb_CP</value>
+			<value>pinky_CP</value>
+			<value>ring_CP</value>
+			<value>middle_CP</value>
+			<value>index_CP</value>
+			<value>palm</value>
+			<value>palm_E</value>
+			<value>wrist</value>
+		</joints>
+
+		<left />
+
+		<right type="array" kinematic="False">
+			<thumb_PIP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</thumb_PIP>
+
+			<thumb_MCP>
+				<implemented>True</implemented>
+				<minrange>10</minrange>
+				<maxrange>170</maxrange>
+				<restposition>-1</restposition>
+				<code>0</code>
+			</thumb_MCP>
+
+			<thumb_MCP_A>
+				<implemented>True</implemented>
+				<minrange>10</minrange>
+				<maxrange>170</maxrange>
+				<restposition>100</restposition>
+				<code>5</code>
+			</thumb_MCP_A>
+
+			<pinky_PIP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</pinky_PIP>
+
+			<pinky_MCP>
+				<implemented>True</implemented>
+				<minrange>10</minrange>
+				<maxrange>180</maxrange>
+				<restposition>-1</restposition>
+				<code>4</code>
+			</pinky_MCP>
+
+			<pinky_MCP_A>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</pinky_MCP_A>
+
+			<ring_PIP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</ring_PIP>
+
+			<ring_MCP>
+				<implemented>True</implemented>
+				<minrange>10</minrange>
+				<maxrange>170</maxrange>
+				<restposition>-1</restposition>
+				<code>3</code>
+			</ring_MCP>
+
+			<ring_MCP_A>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</ring_MCP_A>
+
+			<middle_PIP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</middle_PIP>
+
+			<middle_MCP>
+				<implemented>True</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>-1</restposition>
+				<code>2</code>
+			</middle_MCP>
+
+			<middle_MCP_A>
+				<implemented>True</implemented>
+				<minrange>50</minrange>
+				<maxrange>150</maxrange>
+				<restposition>90</restposition>
+				<code>7</code>
+			</middle_MCP_A>
+
+			<index_PIP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</index_PIP>
+
+			<index_MCP>
+				<implemented>True</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>-1</restposition>
+				<code>1</code>
+			</index_MCP>
+
+			<index_MCP_A>
+				<implemented>True</implemented>
+				<minrange>30</minrange>
+				<maxrange>130</maxrange>
+				<restposition>80</restposition>
+				<code>6</code>
+			</index_MCP_A>
+
+			<thumb_CP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</thumb_CP>
+
+			<pinky_CP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</pinky_CP>
+
+			<ring_CP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</ring_CP>
+
+			<middle_CP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</middle_CP>
+
+			<index_CP>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</index_CP>
+
+			<palm>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</palm>
+
+			<palm_E>
+				<implemented>False</implemented>
+				<minrange>0</minrange>
+				<maxrange>180</maxrange>
+				<restposition>0</restposition>
+				<code>-1</code>
+			</palm_E>
+
+			<wrist>
+				<implemented>True</implemented>
+				<minrange>30</minrange>
+				<maxrange>180</maxrange>
+				<restposition>90</restposition>
+				<code>8</code>
+			</wrist>
+		</right>
+	</hands>
+
+	<arms />
+
+</robot>

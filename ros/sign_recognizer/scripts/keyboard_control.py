@@ -35,7 +35,7 @@ class KeyboardNode:
     def __init__(self):
         rospy.init_node('keaboard_sign', anonymous=True)
 
-        self.signs_topic = rospy.get_param('signs_topic','/parloma/signs_topic')
+        self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
 
         self.pub = rospy.Publisher(self.signs_topic, String, queue_size=10)
         while not rospy.is_shutdown():
