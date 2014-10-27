@@ -43,3 +43,5 @@ Contributors
 Ludovico Orlando Russo, Ph.D. student, Politecnico di Torino, ludovico.russo@polito.it
 
 Giuseppe Airo' Farulla, Ph.D. student, Politecnico di Torino, giuseppe.airofarulla@polito.it
+
+Andrea Bulgarelli, Mc.S., Politecnico di Torino, andrea.bulgarelli@hotmail.it
