@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(hand_driver)
+project(parloma_driver)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -82,7 +82,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES hand_driver
+#  LIBRARIES parloma_driver
 #  CATKIN_DEPENDS hand_msgs roscpp rospy serial_bridge
 #  DEPENDS system_lib
 )
@@ -99,19 +99,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(hand_driver
-#   src/${PROJECT_NAME}/hand_driver.cpp
+# add_library(parloma_driver
+#   src/${PROJECT_NAME}/parloma_driver.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(hand_driver_node src/hand_driver_node.cpp)
+# add_executable(parloma_driver_node src/parloma_driver_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(hand_driver_node hand_driver_generate_messages_cpp)
+# add_dependencies(parloma_driver_node parloma_driver_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(hand_driver_node
+# target_link_libraries(parloma_driver_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -130,7 +130,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS hand_driver hand_driver_node
+# install(TARGETS parloma_driver parloma_driver_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -155,7 +155,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_hand_driver.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_parloma_driver.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

@@ -27,7 +27,7 @@
 
 
 # Import required Python code.
-import roslib; roslib.load_manifest('hand_driver')
+import roslib; roslib.load_manifest('parloma_driver')
 import rospy
 import sys
 
@@ -35,8 +35,8 @@ from serial_bridge.msg import generic_serial
 
 
 from hand_widget import HandWidget
-from hand_driver.modules import ParserCommands
-from hand_driver.modules import ParserSigns
+from parloma_driver.modules import ParserCommands
+from parloma_driver.modules import ParserSigns
 
 
 class HandCalbrator():
@@ -69,9 +69,9 @@ class HandCalbrator():
         # get parameters
         self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
 
-        self.xml_hand = rospy.get_param('xml_hand', '/Users/ludus/Desktop/XML/robot_hand_Bulga.xml')
-        self.xml_signs = rospy.get_param('xml_signs', '/Users/ludus/hydro_ws/src/parloma/parloma_hand/hand_driver/xml/signs2pose.xml')
-        self.xml_commands = rospy.get_param('xml_commands', '/Users/ludus/Desktop/XML/commands_list.xml')
+        self.xml_hand = rospy.get_param('xml_hand', 'robot_hand.xml')
+        self.xml_signs = rospy.get_param('xml_signs', 'signs2pose.xml')
+        self.xml_commands = rospy.get_param('xml_commands', 'commands_list.xml')
 
         self.ps = ParserSigns(self.xml_hand, self.xml_signs)
         self.pc = ParserCommands(self.xml_commands)

@@ -34,7 +34,7 @@ import sys
 from serial_bridge.msg import generic_serial
 from std_msgs.msg import String
 
-from hand_driver.modules import ParserSigns, ParserCommands
+from parloma_driver.modules import ParserSigns, ParserCommands
 
 class HandDriver():
     def _sign_callback(self, sign):
@@ -77,7 +77,7 @@ class HandDriver():
         rospy.spin()
 
 if __name__ == '__main__':
-    rospy.init_node('arduino_hand_driver', anonymous=True)
+    rospy.init_node('hand_driver', anonymous=True)
     try:
         ne = HandDriver()
     except rospy.ROSInterruptException: pass
