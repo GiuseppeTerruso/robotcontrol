@@ -1,18 +1,14 @@
 <launch>
-  <group ns = "parloma">
-    <param name="signs_topic" value="signs_topic" />
-    <param name="skeleton_topic" value="skeleton_topic" />
-    <param name="serial_topic" value="serial_topic" />
+  <group ns = "interaction">
+    <param name="signs_topic" value="/signs_topic" />
+    <param name="skeleton_topic" value="/skeleton_topic" />
+    <param name="serial_topic" value="/serial_topic" />
 
-    <node name="parloma_interaction_node" pkg="parloma_interaction" type="parloma_interaction.py">
-      <param name="classifier" value="(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" />
+    <node name="sign_recognizer" pkg="parloma_interaction" type="sign_recognizer.py">
+      <param name="classifier" value="$(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" />
     </node>
 
-    <node name="hand_driver" pkg="arduino_hand_driver" type="hand_driver.py" >
-    </node>
-
-    <node pkg="rosbag" type="play" name="player" output="screen" args="$(find parloma_interaction)/bags/2014-10-21-14-30-22.bag">
-      <remap from="/skeleton_topic" to="/parloma/skeleton_topic"/>
+    <node pkg="rosbag" type="play" name="player" output="screen" args="$(find parloma_interaction)/bags/test.bag">
     </node>
   </group>
 </launch>

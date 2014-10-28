@@ -27,9 +27,9 @@ class VoiceNode:
         self.lastPh = ''
         print "Ready to convert"
         rospy.init_node('voice_driver')
-        self.input_topic = rospy.get_param("~input_topic", '/parloma/signs_topic')
+        self.input_topic = rospy.get_param("input_topic", '/signs_topic')
         self.subs = rospy.Subscriber(self.input_topic, String, self.sign_callback)
         rospy.spin()
 
 if __name__=='__main__':
-    nh =VoiceNode()
+    nh = VoiceNode()

@@ -1,0 +1,6 @@
+<launch>
+  <include file="$(find parloma_interaction)/launch/bags.launch" />
+  <include file="$(find parloma_visualization)/launch/visualization.launch" />
+  <include file="$(find parloma_driver)/launch/demo_hand.launch" />
+  <include file="$(find parloma_driver)/launch/demo_voice.launch" />
+</launch>

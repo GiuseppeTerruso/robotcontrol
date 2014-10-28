@@ -1,20 +1,12 @@
 <launch>
-  <group ns = "parloma">
-    <param name="signs_topic" value="signs_topic" />
-    <param name="serial_topic" value="serial_topic" />
+  <group ns = "interaction">
+    <param name="signs_topic" value="/signs_topic" />
     <param name="skeleton_topic" value="/skeleton_topic" />
 
     <node name="parloma_interaction_node" pkg="parloma_interaction" type="parloma_interaction.py">
       <param name="classifier" value="$(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" />
     </node>
 
-
-    <node name="hand_driver" pkg="arduino_hand_driver" type="hand_driver.py" />
-    <node name="serial_comm" pkg="serial_bridge" type="serial_node.py">
-      <param name="baudrate" value="9600"/>
-      <param name="port" value="/dev/tty.usbmodem1421" />
-    </node>
-  </group>
   <group ns = "ieiit">
     <param name="skeleton_topic" value="/skeleton_topic" />
     <node name="skeleton_extractor" pkg="parloma_interaction" type="skeleton_extractor.py" output = "screen">
