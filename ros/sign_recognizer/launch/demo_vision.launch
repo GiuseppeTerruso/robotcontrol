@@ -10,7 +10,7 @@
 
 
     <node name="hand_driver" pkg="arduino_hand_driver" type="hand_driver.py" />
-    <node name="serial_comm" pkg="serial_bridge" type="hand_ctr.py">
+    <node name="serial_comm" pkg="serial_bridge" type="serial_node.py">
       <param name="baudrate" value="9600"/>
       <param name="port" value="/dev/tty.usbmodem1421" />
     </node>

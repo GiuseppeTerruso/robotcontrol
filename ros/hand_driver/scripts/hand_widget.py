@@ -39,8 +39,16 @@ class HandWidget(QtGui.QWidget):
         self.add_config('default', len(self.slds)*[0])
 
 
-        self.button1 = QtGui.QPushButton('Send',self)
-        vbox.addWidget(self.button1)
+        
+
+        hbox = QtGui.QHBoxLayout()
+        self.bsend= QtGui.QPushButton('Send',self)
+        hbox.addWidget(self.bsend)
+
+        self.bsave = QtGui.QPushButton('Save',self)
+        hbox.addWidget(self.bsave)
+
+        vbox.addLayout(hbox)
 
         self.setGeometry(300, 300, 250, 150)
 
@@ -57,7 +65,7 @@ class HandWidget(QtGui.QWidget):
 
 
     def connect_button(self, signal):
-        self.connect(self.button1, QtCore.SIGNAL('clicked()'), signal)
+        self.connect(self.bsend, QtCore.SIGNAL('clicked()'), signal)
 
     def get_scrolls(self):
         values = [sld.value() for sld in self.slds]

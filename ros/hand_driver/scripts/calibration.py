@@ -27,19 +27,17 @@
 
 
 # Import required Python code.
-import roslib
+import roslib; roslib.load_manifest('hand_driver')
 import rospy
 import sys
 
 from serial_bridge.msg import generic_serial
 
-from sign_parser.parser_signs import parser_signs
-from sign_parser.parser_command import parser_command
-from sign_parser.hand_widget import HandWidget
 
+from hand_widget import HandWidget
+from hand_driver.modules import ParserCommands
+from hand_driver.modules import ParserSigns
 
-
-MOVE_ALL_CMD = 241
 
 class HandCalbrator():
     def sign_callback(self, sign):
@@ -55,15 +53,15 @@ class HandCalbrator():
                 self.serial_pub.publish(msg)
                 rospy.sleep(0.5)
 
-    def  send_sign(self):
+    def send_sign(self):
         msg = generic_serial()
-        msg.msg = [MOVE_ALL_CMD] + self.widget.get_scrolls()
+        msg.msg = [self.pc.parse('set_all_motors')] + self.widget.get_scrolls()
         self.serial_pub.publish(msg)
 
 
     def send_rest(self):
         msg = generic_serial()
-        msg.msg = [MOVE_ALL_CMD, 180, 180, 180, 180, 180, 70, 90 ,50 ,120]
+        msg.msg = [241, 180, 180, 180, 180, 180, 70, 90 ,50 ,120]
         self.serial_pub.publish(msg)
 
     def __init__(self):
@@ -72,11 +70,11 @@ class HandCalbrator():
         self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
 
         self.xml_hand = rospy.get_param('xml_hand', '/Users/ludus/Desktop/XML/robot_hand_Bulga.xml')
-        self.xml_signs = rospy.get_param('xml_signs', '/Users/ludus/Desktop/XML/signs2pose.xml')
+        self.xml_signs = rospy.get_param('xml_signs', '/Users/ludus/hydro_ws/src/parloma/parloma_hand/hand_driver/xml/signs2pose.xml')
         self.xml_commands = rospy.get_param('xml_commands', '/Users/ludus/Desktop/XML/commands_list.xml')
 
-        self.ps = parser_signs(self.xml_hand, self.xml_signs)
-        self.pc = parser_command(self.xml_commands)
+        self.ps = ParserSigns(self.xml_hand, self.xml_signs)
+        self.pc = ParserCommands(self.xml_commands)
 
         # init topics
         self.serial_pub = rospy.Publisher(self.output_topic, generic_serial, queue_size=10)
@@ -85,17 +83,16 @@ class HandCalbrator():
         self.widget.set_scrolls(100)
         self.widget.connect_button(self.send_sign)
 
-        sign_list = ['V', 'W', 'A']
-        cmds = self.ps.parse(sign_list)
+        cmds = self.ps.parse(None)
         print cmds
 
-        for i in range(0, len(sign_list)):
-            cmd_dict = cmds[i]
-            sign = sign_list[i]
-            cmd = []
-            for c in cmd_dict:
-                cmd.append(cmd_dict[c])
-            self.widget.add_config(sign, cmd)
+        for sign in cmds.keys():
+            cmd_dict = cmds[sign]
+            for k in cmd_dict:
+                cmd = []
+                for c in cmd_dict[k]:
+                    cmd.append(cmd_dict[k][c])
+                    self.widget.add_config(sign + " - %s"%k, cmd)
 
 
         rospy.loginfo(rospy.get_caller_id() + " Node Initialized")

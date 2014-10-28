@@ -35,28 +35,27 @@ import sys
 class SerialBridge():
     def __init__(self):
         # get parameters from ROS
-        self.port = rospy.get_param('~port', '/dev/ttyACM0');
-        self.baudrate= rospy.get_param('~baudrate', '9600');
-        self.topic = rospy.get_param('serial_topic', '/serial_topic');
+        self._port = rospy.get_param('~port', '/dev/ttyACM0');
+        self._baudrate= rospy.get_param('~baudrate', '9600');
+        self._topic = rospy.get_param('serial_topic', '/serial_topic');
 
-
-        self.serial_comm = serial.Serial(port=self.port, baudrate=self.baudrate)
-        if (self.serial_comm.isOpen()):
-            rospy.loginfo("Node connected to serial port %s ad baudrate %s"%(self.port,self.baudrate))
+        self._serial_comm = serial.Serial(port=self._port, baudrate=self._baudrate)
+        if (self._serial_comm.isOpen()):
+            rospy.loginfo("Node connected to serial port %s ad baudrate %s"%(self._port,self._baudrate))
         else:
-            rospy.logerr("Port %s not available"%(self.port,))
+            rospy.logerr("Port %s not available"%(self._port,))
             return
-        self.serial_comm.flushInput()
-        self.serial_comm.flushOutput()
+        self._serial_comm.flushInput()
+        self._serial_comm.flushOutput()
 
         # init topics
-        rospy.Subscriber(self.topic, generic_serial, self.serial_callback)
+        rospy.Subscriber(self._topic, generic_serial, self._serial_callback)
 
         rospy.loginfo("Node Initialized")
         rospy.spin()
 
-    def serial_callback(self, serial_data):
-        self.serial_comm.write(serial_data.msg)
+    def _serial_callback(self, serial_data):
+        self._serial_comm.write(serial_data.msg)
 
 if __name__ == '__main__':
     rospy.init_node('serial_bridge', anonymous=True)
