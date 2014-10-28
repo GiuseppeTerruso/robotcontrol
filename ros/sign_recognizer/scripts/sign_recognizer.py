@@ -29,7 +29,7 @@
 
 import rospy
 from std_msgs.msg import String
-from hand_msgs.msg import hand_skeleton
+from parloma_msgs.msg import hand_skeleton
 from sklearn.externals import joblib
 from math import sqrt, pow
 import numpy as np

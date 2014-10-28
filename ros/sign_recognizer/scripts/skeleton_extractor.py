@@ -7,7 +7,7 @@ from hand_grabber import PyOpenNIHandGrabber
 from pose_recognizer import PyPoseRecognizer
 import Image
 
-from hand_msgs.msg import hand_skeleton
+from parloma_msgs.msg import hand_skeleton
 from geometry_msgs.msg import Point
 
 import rospy

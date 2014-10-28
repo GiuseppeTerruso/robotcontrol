@@ -28,7 +28,7 @@
 
 
 import rospy
-from hand_msgs.msg import hand_skeleton
+from parloma_msgs.msg import hand_skeleton
 from visualization_msgs.msg import Marker, MarkerArray
 import geometry_msgs.msg
 import std_msgs.msg
