@@ -5,7 +5,7 @@ project(parloma_driver)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  hand_msgs
+  parloma_msgs
   roscpp
   rospy
   serial_bridge
@@ -68,7 +68,7 @@ catkin_python_setup()
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   hand_msgs
+#   parloma_msgs
 # )
 
 ###################################
@@ -83,7 +83,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES parloma_driver
-#  CATKIN_DEPENDS hand_msgs roscpp rospy serial_bridge
+#  CATKIN_DEPENDS parloma_msgs roscpp rospy serial_bridge
 #  DEPENDS system_lib
 )
 
