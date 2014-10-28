@@ -1,0 +1,10 @@
+<launch>
+  <group ns = "visualization">
+
+    <param name="skeleton_topic" value="/skeleton_topic" />
+
+    <node name="skeleton_visualization" pkg="parloma_visualization" type="skeleton_rviz.py"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parloma_visualization)/rviz/conf.rviz"/>
+
+  </group>
+</launch>
