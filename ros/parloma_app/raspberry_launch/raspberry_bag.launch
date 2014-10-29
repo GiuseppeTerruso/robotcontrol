@@ -1,0 +1,13 @@
+<launch>
+  <machine name="raspberry" address="10.0.1.45" env-loader="/home/pi/hydro_ws/env.sh"  user="pi" password="raspberry"/>
+
+  <include file="$(find parloma_interaction)/launch/bags.launch" />
+  <include file="$(find parloma_visualization)/launch/visualization.launch" />
+  <include file="$(find parloma_driver)/launch/demo_hand.launch" />
+  <include file="$(find parloma_driver)/launch/demo_voice.launch" />
+
+  <param name="serial_topic" value="/output/serial_topic" />
+  <node machine="raspberry" pkg="serial_bridge" type="hand_ctr.py" name="arduino" args="" >
+    <param name="port" value="/dev/ttyACM0" />
+  </node>
+</launch>
