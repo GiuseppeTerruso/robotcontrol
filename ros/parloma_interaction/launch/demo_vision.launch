@@ -3,10 +3,10 @@
     <param name="signs_topic" value="/signs_topic" />
     <param name="skeleton_topic" value="/skeleton_topic" />
 
-    <node name="parloma_interaction_node" pkg="parloma_interaction" type="parloma_interaction.py">
+    <node name="parloma_interaction_node" pkg="parloma_interaction" type="sign_recognizer.py">
       <param name="classifier" value="$(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" />
     </node>
-
+  </group>
   <group ns = "ieiit">
     <param name="skeleton_topic" value="/skeleton_topic" />
     <node name="skeleton_extractor" pkg="parloma_interaction" type="skeleton_extractor.py" output = "screen">
