@@ -982,7 +982,7 @@
 			</row>
 			<row row_id="1" type_id="array">
 				<thumb_PIP>0</thumb_PIP>
-				<thumb_MCP>0.0</thumb_MCP>
+				<thumb_MCP>1.0</thumb_MCP>
 				<thumb_MCP_A>-1.0</thumb_MCP_A>
 				<pinky_PIP>1</pinky_PIP>
 				<pinky_MCP>1.0</pinky_MCP>
@@ -990,7 +990,7 @@
 				<ring_PIP>1</ring_PIP>
 				<ring_MCP>1.0</ring_MCP>
 				<ring_MCP_A>0</ring_MCP_A>
-				<middle_PIP>1</middle_PIP>
+				<middle_PIP>1.0</middle_PIP>
 				<middle_MCP>1.0</middle_MCP>
 				<middle_MCP_A>0.0</middle_MCP_A>
 				<index_PIP>1</index_PIP>
@@ -1062,8 +1062,33 @@
 		</sign>
 
 		<sign dynamic="False" name_id="U" type_id="matrix">
-			<rowsN>1</rowsN>
+			<rowsN>2</rowsN>
 			<row row_id="0" type_id="array">
+				<thumb_PIP>0</thumb_PIP>
+				<thumb_MCP>1.0</thumb_MCP>
+				<thumb_MCP_A>0.0</thumb_MCP_A>
+				<pinky_PIP>1</pinky_PIP>
+				<pinky_MCP>1.0</pinky_MCP>
+				<pinky_MCP_A>0</pinky_MCP_A>
+				<ring_PIP>1</ring_PIP>
+				<ring_MCP>1.0</ring_MCP>
+				<ring_MCP_A>0</ring_MCP_A>
+				<middle_PIP>0</middle_PIP>
+				<middle_MCP>0.0</middle_MCP>
+				<middle_MCP_A>0.0</middle_MCP_A>
+				<index_PIP>0</index_PIP>
+				<index_MCP>0.0</index_MCP>
+				<index_MCP_A>0.4</index_MCP_A>
+				<thumb_CP>0</thumb_CP>
+				<pinky_CP>0</pinky_CP>
+				<ring_CP>0</ring_CP>
+				<middle_CP>0</middle_CP>
+				<index_CP>0</index_CP>
+				<palm>0</palm>
+				<palm_E>0</palm_E>
+				<wrist>0.0</wrist>
+			</row>
+			<row row_id="1" type_id="array">
 				<thumb_PIP>0.2</thumb_PIP>
 				<thumb_MCP>1.0</thumb_MCP>
 				<thumb_MCP_A>0.0</thumb_MCP_A>
@@ -1075,10 +1100,10 @@
 				<ring_MCP_A>0</ring_MCP_A>
 				<middle_PIP>0</middle_PIP>
 				<middle_MCP>0.0</middle_MCP>
-				<middle_MCP_A>0.8</middle_MCP_A>
+				<middle_MCP_A>0.0</middle_MCP_A>
 				<index_PIP>0</index_PIP>
 				<index_MCP>0.0</index_MCP>
-				<index_MCP_A>-0.8</index_MCP_A>
+				<index_MCP_A>0.4</index_MCP_A>
 				<thumb_CP>0</thumb_CP>
 				<pinky_CP>0</pinky_CP>
 				<ring_CP>0</ring_CP>
@@ -1091,8 +1116,33 @@
 		</sign>
 
 		<sign dynamic="False" name_id="V" type_id="matrix">
-			<rowsN>1</rowsN>
+			<rowsN>2</rowsN>
 			<row row_id="0" type_id="array">
+				<thumb_PIP>0</thumb_PIP>
+				<thumb_MCP>1.0</thumb_MCP>
+				<thumb_MCP_A>0.0</thumb_MCP_A>
+				<pinky_PIP>1</pinky_PIP>
+				<pinky_MCP>1.0</pinky_MCP>
+				<pinky_MCP_A>0</pinky_MCP_A>
+				<ring_PIP>1</ring_PIP>
+				<ring_MCP>1.0</ring_MCP>
+				<ring_MCP_A>0</ring_MCP_A>
+				<middle_PIP>0</middle_PIP>
+				<middle_MCP>0.0</middle_MCP>
+				<middle_MCP_A>0.0</middle_MCP_A>
+				<index_PIP>0</index_PIP>
+				<index_MCP>0.0</index_MCP>
+				<index_MCP_A>0.4</index_MCP_A>
+				<thumb_CP>0</thumb_CP>
+				<pinky_CP>0</pinky_CP>
+				<ring_CP>0</ring_CP>
+				<middle_CP>0</middle_CP>
+				<index_CP>0</index_CP>
+				<palm>0</palm>
+				<palm_E>0</palm_E>
+				<wrist>0.0</wrist>
+			</row>
+			<row row_id="1" type_id="array">
 				<thumb_PIP>0.2</thumb_PIP>
 				<thumb_MCP>1.0</thumb_MCP>
 				<thumb_MCP_A>0.0</thumb_MCP_A>
@@ -1120,8 +1170,33 @@
 		</sign>
 
 		<sign dynamic="False" name_id="W" type_id="matrix">
-			<rowsN>1</rowsN>
+			<rowsN>2</rowsN>
 			<row row_id="0" type_id="array">
+				<thumb_PIP>0</thumb_PIP>
+				<thumb_MCP>0</thumb_MCP>
+				<thumb_MCP_A>0</thumb_MCP_A>
+				<pinky_PIP>1</pinky_PIP>
+				<pinky_MCP>1</pinky_MCP>
+				<pinky_MCP_A>0</pinky_MCP_A>
+				<ring_PIP>0</ring_PIP>
+				<ring_MCP>0</ring_MCP>
+				<ring_MCP_A>0</ring_MCP_A>
+				<middle_PIP>0</middle_PIP>
+				<middle_MCP>0</middle_MCP>
+				<middle_MCP_A>0</middle_MCP_A>
+				<index_PIP>0</index_PIP>
+				<index_MCP>0</index_MCP>
+				<index_MCP_A>0</index_MCP_A>
+				<thumb_CP>0</thumb_CP>
+				<pinky_CP>0</pinky_CP>
+				<ring_CP>0</ring_CP>
+				<middle_CP>0</middle_CP>
+				<index_CP>0</index_CP>
+				<palm>0</palm>
+				<palm_E>0</palm_E>
+				<wrist>0</wrist>
+			</row>
+			<row row_id="1" type_id="array">
 				<thumb_PIP>0.2</thumb_PIP>
 				<thumb_MCP>1.0</thumb_MCP>
 				<thumb_MCP_A>0.0</thumb_MCP_A>
@@ -1133,7 +1208,7 @@
 				<ring_MCP_A>0</ring_MCP_A>
 				<middle_PIP>0</middle_PIP>
 				<middle_MCP>0.0</middle_MCP>
-				<middle_MCP_A>0.54</middle_MCP_A>
+				<middle_MCP_A>0.0</middle_MCP_A>
 				<index_PIP>0</index_PIP>
 				<index_MCP>0.0</index_MCP>
 				<index_MCP_A>0.0</index_MCP_A>

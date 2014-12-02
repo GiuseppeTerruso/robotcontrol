@@ -139,7 +139,7 @@
 				<code>-1</code>
 			</joint>
 
-			<joint name_id="middle_MCP">
+			<joint name_id="middle_PIP">
                 <minvalue>0</minvalue>
 				<implemented>True</implemented>
 				<minrange>0</minrange>
@@ -193,7 +193,7 @@
 				<code>-1</code>
 			</joint>
 
-			<joint name_id="pinky_CP">
+			<joint name_id="tpinky_CP">
                 <minvalue>0</minvalue>
 				<implemented>False</implemented>
 				<minrange>0</minrange>
