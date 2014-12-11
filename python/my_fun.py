@@ -39,13 +39,13 @@ def create_patterns(paths):
 def create_labels(paths):
 	Y = []
 	for p in paths:
-		Y.append(p.split('/')[9][0])
+		Y.append(p.split('/')[-2])
 	return Y
 
 #Training against patterns (input data) and a priori labels (Y)
 def train_obj(path_training_set, classifier_obj):
 	paths = []
-	SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S1','U','V','W','X','Y']
+	SIGN_LIST = ['A','B','C','D','F','I','L','R','REST','S1','U','V','W','X','Y']
 	for sign in SIGN_LIST:
 		paths += glob.glob(path_training_set+'*/'+sign+'/*.xml')
 	X = create_patterns(paths)

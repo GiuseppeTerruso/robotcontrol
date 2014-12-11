@@ -60,11 +60,10 @@ class HandDriver:
     def __init__(self):
 
         # get parameters
-        self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
 
-        xml_hand = rospy.get_param('xml_hand', 'robot_hand.xml')
-        self.xml_signs = rospy.get_param('xml_signs', 'signs2pose.xml')
-        xml_commands = rospy.get_param('xml_commands', 'commands_list.xml')
+        xml_hand = rospy.get_param('~xml_hand', 'robot_hand.xml')
+        self.xml_signs = rospy.get_param('~xml_signs', 'signs2pose.xml')
+        xml_commands = rospy.get_param('~xml_commands', 'commands_list.xml')
 
         self.ps = ParserSigns(self.xml_signs)
         self.pc = ParserCommands(xml_commands)
@@ -78,6 +77,10 @@ class HandDriver:
         rospy.Subscriber(self._input_topic, String, self.sign_callback)
         self._serial_pub = rospy.Publisher(self._output_topic, generic_serial, queue_size=10)
         rospy.loginfo(rospy.get_caller_id() + " Node Initialized")
+        
+        self._output_topic_info = rospy.get_param('serial_topic_info', '/serial_topic_info');
+        self._serial_pub_info = rospy.Publisher(self._output_topic_info, String, queue_size=10)
+        
         rospy.spin()
 
     ## @brief Documentation for function sign_callback
@@ -88,27 +91,35 @@ class HandDriver:
     def sign_callback(self, StrSign):
 
         sign = str(StrSign)
-        sign2 = sign[-1]
+        sign2 = sign.split(": ")[-1]
 
-        print "AAA " + sign2
-
-        # ps = ParserSigns(self.xml_signs)
-        s = self.ps.parse_sign_rows(str(sign2), False)
-
-        cmds = self.pr.parse(s.values())
-        print cmds
-
-        if cmds == None or len(cmds) == 0:
-            print "Sign " + sign2 + " not found!"
+        msg_info = "Recognized Sign-" + sign2
+        self._serial_pub_info.publish(msg_info)
+        
+        if sign2 == "REST":
             self._send_rest()
+            msg_info = "REST"
+            rospy.sleep(0.001)
+            self._serial_pub_info.publish(msg_info)
         else:
-            for cmd in cmds:
-                msg = generic_serial()
-                msg.msg = [self.pc.parse('set_all_motors')]
-                for c in range(len(cmd.keys())):
-                    msg.msg.append(cmd[c])
-                self._serial_pub.publish(msg)
+            # ps = ParserSigns(self.xml_signs)
+            s = self.ps.parse_sign_rows(str(sign2), False)
+
+            cmds = self.pr.parse(s.values())
+            print cmds
+
+            if cmds == None or len(cmds) == 0:
+                print "Sign " + sign2 + " not found!"
+                self._send_rest()
                 rospy.sleep(0.001)
+            else:
+                for cmd in cmds:
+                    msg = generic_serial()
+                    msg.msg = [self.pc.parse('set_all_motors')]
+                    for c in range(len(cmd.keys())):
+                        msg.msg.append(cmd[c])
+                    self._serial_pub.publish(msg)
+                    rospy.sleep(0.001)
 
     ## @brief Documentation for function _send_rest
     #

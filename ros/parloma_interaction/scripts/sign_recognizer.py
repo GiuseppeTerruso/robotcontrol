@@ -35,7 +35,7 @@ from math import sqrt, pow
 import numpy as np
 from std_msgs.msg import String
 
-signs= ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
+signs= ['A','B','C','D','F','I','L','R','REST','S','U','V','W','X','Y']
 
 class SignClassifier:
     def __init__(self, forest_file):
@@ -53,7 +53,7 @@ class SignClassifierNode:
     def __init__(self):
         rospy.init_node('sing_recoignizer', anonymous=True)
 
-        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer.pkl')
+        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer-Beppe-REST.xml')
         self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
         self.skeleton_topic = rospy.get_param('skeleton_topic','/skeleton')
 
@@ -86,7 +86,3 @@ class SignClassifierNode:
 
 if __name__ == '__main__':
     SignClassifierNode()
-
-
-
-

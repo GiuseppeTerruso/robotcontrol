@@ -25,7 +25,7 @@ class SkeletonTrackerNode:
         self.skeleton_topic = rospy.get_param('skeleton_topic', '/skeleton')
         self.skeleton_pub = rospy.Publisher(self.skeleton_topic, hand_skeleton, queue_size=10)
 
-        self.recog = PyPoseRecognizer(22, WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
+        self.recog = PyPoseRecognizer(WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
         self.grabber = PyOpenNIHandGrabber()
 
     def run(self):
