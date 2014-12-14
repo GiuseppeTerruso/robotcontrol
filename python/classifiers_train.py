@@ -1,4 +1,4 @@
-#Training classifier (first argument to the script) against a train_path (second argument)
+#Training classifier against a train_path (script argument)
 
 from my_fun import *
 from sklearn import tree
@@ -11,6 +11,7 @@ train_path = sys.argv[1]
 clfRandom = RandomForestClassifier(n_estimators=95)
 print "clfRandom created"
 
-clfRandom = train_obj(train_path, clfRandom)
+clfRandom, SIGN_LIST = train_obj(train_path, clfRandom)
 #9 stands for maximum compression
 joblib.dump(clfRandom, "forest.xml", 9)
+joblib.dump(SIGNS_LIST, "SIGN_LIST.xml", 0)

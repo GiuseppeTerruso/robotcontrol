@@ -77,7 +77,7 @@ class SkeletonTrackerNode:
     def pub_skeleton(self, joints):
         msg = hand_skeleton()
         for j in joints:
-            msg.joints.append(Point(j[0], j[1],j[2]))
+            msg.joints.append(Point(j[0],j[1],j[2]))
         self.skeleton_pub.publish(msg)
 
 

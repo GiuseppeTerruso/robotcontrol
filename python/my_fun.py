@@ -55,7 +55,7 @@ def train_obj(path_training_set, classifier_obj):
 	#print Y
 
 	classifier_obj = classifier_obj.fit(X,Y)
-	return classifier_obj
+	return classifier_obj, SIGN_LIST
 
 #Testing against patterns (input data) and a priori labels (Y)
 def test_obj(path_test, classifier_obj):

@@ -35,16 +35,19 @@ from math import sqrt, pow
 import numpy as np
 from std_msgs.msg import String
 
-signs= ['A','B','C','D','F','I','L','R','REST','S','U','V','W','X','Y']
+#signs = ['A','B','C','D','F','I','L','R','REST','S','U','V','W','X','Y']
 
 class SignClassifier:
-    def __init__(self, forest_file):
+    def __init__(self, forest_file, signs_list_file):
         self.clf = joblib.load(forest_file)
+        self.signs = joblib.load(signs_list_file)
+        print self.signs
 
     def classify_skeleton(self, jointsdists):
         prob = self.clf.predict_proba(jointsdists)
         mm = prob.argmax()
-        signRecogIndex = signs[mm]
+        #signRecogIndex = signs[mm]
+        signRecogIndex = self.signs[mm]
         prob = prob[0][mm]
         return signRecogIndex, prob
 
@@ -54,10 +57,11 @@ class SignClassifierNode:
         rospy.init_node('sing_recoignizer', anonymous=True)
 
         self.classifier_path = rospy.get_param('~classifier', 'forest-2layer-Beppe-REST.xml')
+        self.signs_list_path = rospy.get_param('~signs_list', 'SIGN_LIST.xml')
         self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
         self.skeleton_topic = rospy.get_param('skeleton_topic','/skeleton')
 
-        self.classifier = SignClassifier(self.classifier_path)
+        self.classifier = SignClassifier(self.classifier_path, self.signs_list_path)
         rospy.Subscriber(self.skeleton_topic, hand_skeleton, self.callback_skeleton)
         self.pub = rospy.Publisher(self.signs_topic, String, queue_size=10)
         rospy.spin()
