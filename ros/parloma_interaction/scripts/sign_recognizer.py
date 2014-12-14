@@ -56,8 +56,8 @@ class SignClassifierNode:
     def __init__(self):
         rospy.init_node('sing_recoignizer', anonymous=True)
 
-        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer-Beppe-REST.xml')
-        self.signs_list_path = rospy.get_param('~signs_list', 'SIGN_LIST.xml')
+        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer-Beppe-REST.pkl')
+        self.signs_list_path = rospy.get_param('~signs_list', 'SIGN_LIST.pkl')
         self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
         self.skeleton_topic = rospy.get_param('skeleton_topic','/skeleton')
 

@@ -9,9 +9,9 @@ import sys
 train_path = sys.argv[1]
 
 clfRandom = RandomForestClassifier(n_estimators=95)
-print "clfRandom created"
-
+print "clfRandom created. Start training..."
 clfRandom, SIGN_LIST = train_obj(train_path, clfRandom)
+
 #9 stands for maximum compression
-joblib.dump(clfRandom, "forest.xml", 9)
-joblib.dump(SIGNS_LIST, "SIGN_LIST.xml", 0)
+joblib.dump(clfRandom, "forest-2layer.pkl", 9)
+joblib.dump(SIGNS_LIST, "SIGN_LIST.pkl", 0)

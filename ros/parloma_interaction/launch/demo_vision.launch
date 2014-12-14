@@ -4,8 +4,8 @@
     <param name="skeleton_topic" value="/skeleton_topic" />
 
     <node name="parloma_interaction_node" pkg="parloma_interaction" type="sign_recognizer.py">
-      <param name="classifier" value="$(find parloma_interaction)/xml/forest-2layer-Beppe-REST.xml" />
-      <param name="signs_list" value="$(find parloma_interaction)/xml/SIGNS_LIST.xml" />
+      <param name="classifier" value="$(find parloma_interaction)/xml/forest-2layer-Beppe-REST.pkl" />
+      <param name="signs_list" value="$(find parloma_interaction)/xml/SIGNS_LIST.pkl" />
     </node>
     
     <node name="parloma_driver_node" pkg="parloma_driver" type="sign2command.py">
