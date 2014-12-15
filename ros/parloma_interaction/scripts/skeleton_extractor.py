@@ -69,7 +69,11 @@ class SkeletonTrackerNode:
         to_show = cvtColor(self.rgb, COLOR_RGB2BGR)
         if (self.found_mask):
             blank_image = np.zeros(to_show.shape, np.uint8)
-            blank_image[:,:] = (0,255,0)
+            blank_image[:,:] = (0,0,255)
+
+            rows,cols = self.mask.shape
+            M = np.float32([[1,0,-20],[0,1,0]])
+            self.mask = warpAffine(self.mask,M,(cols, rows))
             blank_image = bitwise_and(blank_image, blank_image, mask = self.mask)
             to_show = addWeighted(to_show, 1, blank_image, 0.4, 0)
         imshow("Image", to_show)
