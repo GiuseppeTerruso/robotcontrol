@@ -11,12 +11,15 @@ from parloma_msgs.msg import hand_skeleton
 from geometry_msgs.msg import Point
 
 import rospy
+import numpy as np
 
 
 WIDTH=640
 HEIGHT=480
 RADIUS = 150.0
 USE_CPU = False
+
+
 
 class SkeletonTrackerNode:
     def __init__(self):
@@ -65,12 +68,10 @@ class SkeletonTrackerNode:
     def show_image(self):
         to_show = cvtColor(self.rgb, COLOR_RGB2BGR)
         if (self.found_mask):
-            contours, hierarchy = findContours(self.mask, RETR_TREE, CHAIN_APPROX_SIMPLE)
-            hulls = []
-            for contour in contours:
-                hulls.append(convexHull(contour))
-            drawContours(to_show, hulls, -1, (0,255,0))
-
+            blank_image = np.zeros(to_show.shape, np.uint8)
+            blank_image[:,:] = (0,255,0)
+            blank_image = bitwise_and(blank_image, blank_image, mask = self.mask)
+            to_show = addWeighted(to_show, 1, blank_image, 0.4, 0)
         imshow("Image", to_show)
         k = waitKey(30)
 

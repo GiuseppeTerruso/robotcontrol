@@ -35,16 +35,15 @@ from math import sqrt, pow
 import numpy as np
 from std_msgs.msg import String
 
-signs= ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
 
 class SignClassifier:
     def __init__(self, forest_file):
-        self.clf = joblib.load(forest_file)
+        self.clf, self.signs_list= joblib.load(forest_file)
 
     def classify_skeleton(self, jointsdists):
         prob = self.clf.predict_proba(jointsdists)
         mm = prob.argmax()
-        signRecogIndex = signs[mm]
+        signRecogIndex = self.signs_list[mm]
         prob = prob[0][mm]
         return signRecogIndex, prob
 

@@ -4,7 +4,8 @@
     <param name="skeleton_topic" value="/skeleton_topic" />
 
     <node name="parloma_interaction_node" pkg="parloma_interaction" type="sign_recognizer.py">
-      <param name="classifier" value="$(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" />
+      <!-- <param name="classifier" value="$(find parloma_interaction)/xml/RF64/forest-2layerint-x64.pkl" /> -->
+      <param name="classifier" value="$(find parloma_interaction)/xml/clf_2.plk" />
     </node>
   </group>
   <group ns = "ieiit">
