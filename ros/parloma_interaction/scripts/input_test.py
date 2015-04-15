@@ -24,11 +24,7 @@ USE_CPU = False
 class SkeletonTrackerNode:
     def __init__(self):
         rospy.init_node('skeleton_node', anonymous=True)
-        self.forest_file = rospy.get_param('~forest', '../xml/forest-1layer.xml')
-        self.skeleton_topic = rospy.get_param('skeleton_topic', '/skeleton')
-        self.skeleton_pub = rospy.Publisher(self.skeleton_topic, hand_skeleton, queue_size=10)
-
-        self.recog = PyPoseRecognizer(22, WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
+        # self.recog = PyPoseRecognizer(22, WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
         self.grabber = PyOpenNIHandGrabber()
 
     def run(self):
@@ -43,11 +39,11 @@ class SkeletonTrackerNode:
 
     def find_hand(self):
         self.rgb, self.depth = self.grabber.grabFrames()
-        pos = self.grabber.getHand3DPos()
+        # pos = self.grabber.getHand3DPos()
         self.show_image()
-        if len(pos) > 2:
-            if pos[0] or pos[1] or pos[2]:
-                return True
+        # if len(pos) > 2:
+            # if pos[0] or pos[1] or pos[2]:
+                # return True
         return False
 
     def track_skeleton(self):
@@ -67,15 +63,15 @@ class SkeletonTrackerNode:
 
     def show_image(self):
         to_show = cvtColor(self.rgb, COLOR_RGB2BGR)
-        if (self.found_mask):
-            blank_image = np.zeros(to_show.shape, np.uint8)
-            blank_image[:,:] = (0,0,255)
+        # if (self.found_mask):
+        #     blank_image = np.zeros(to_show.shape, np.uint8)
+        #     blank_image[:,:] = (0,0,255)
 
-            rows,cols = self.mask.shape
-            M = np.float32([[1,0,-20],[0,1,0]])
-            self.mask = warpAffine(self.mask,M,(cols, rows))
-            blank_image = bitwise_and(blank_image, blank_image, mask = self.mask)
-            to_show = addWeighted(to_show, 1, blank_image, 0.4, 0)
+        #     rows,cols = self.mask.shape
+        #     M = np.float32([[1,0,-20],[0,1,0]])
+        #     self.mask = warpAffine(self.mask,M,(cols, rows))
+        #     blank_image = bitwise_and(blank_image, blank_image, mask = self.mask)
+        #     to_show = addWeighted(to_show, 1, blank_image, 0.4, 0)
         imshow("Image", to_show)
         k = waitKey(30)
 
