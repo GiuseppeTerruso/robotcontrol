@@ -48,7 +48,8 @@ JOINT_IDX2NAME = ["thumb_3_R", "thumb_2_R", "thumb_1_R",
                   "thumb_palm_R", "pinky_palm_R", "ring_palm_R", "middle_palm_R", "index_palm_R",
                   "palm_R", "wrist_R"]
 
-SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
+#SIGN_LIST = ['A','B','C','D','F','I','L','O','R','S','U','V','W','X','Y']
+SIGN_LIST = ['A', 'B', 'C', 'D', 'F', 'I', 'L', 'R', 'REST', 'S', 'U', 'V', 'W', 'X', 'Y']
 SIGN_INDEX = 0
 SIGN_SIZE = 16
 MAX_POSES = 160
@@ -87,25 +88,31 @@ if __name__=="__main__":
 
     else:
 
-        client = ClientSocket(IP, PORT, 'P'*16)
+        #client = ClientSocket(IP, PORT, 'P'*16)
 
         #CV2 Windows
         namedWindow("rgb")
         namedWindow("masc")
         namedWindow("segno")
         #OpenNi tracker and Cypher Initialization
+	grabber = PyOpenNIHandGrabber()
+
         recog = PyPoseRecognizer(WIDTH, HEIGHT,
                                  sys.argv[1],
                                  USE_CPU, 320)
-        grabber = PyOpenNIHandGrabber()
-
+        
         clf = joblib.load(sys.argv[2])
+	#print clf
+
         crypt = AES.new(PASSCODE)
 
+	print "READY"
+
         #OpenNi wave to start tracking
-        for i in range(0,MAX_POSES):
+        #for i in range(0,MAX_POSES):
         #for i in range(0,10):
-            print("Wave the hand in front of the sensor \n")
+	while True:
+            #print("Wave the hand in front of the sensor \n")
             while True:
                 rgb, depth = grabber.grabFrames()
                 pos = grabber.getHand3DPos() 
@@ -117,8 +124,8 @@ if __name__=="__main__":
             #print("space: start/stop recording")
             #print("q: exit")
 
-            for j in range(0,50):
-                imshow("segno", image)
+            for j in range(0,1):
+                #imshow("segno", image)
                 rgb, depth = grabber.grabFrames()
                 pos = grabber.getHand3DPos()
                 mask = grabber.segment(depth, pos, RADIUS)
@@ -137,23 +144,23 @@ if __name__=="__main__":
                 signRecog = signs[mm]
                 prob = prob[0][mm]
             else:
-                signRecog = clf.predict([joints2dist(joints)])
+                signRecog = clf[0].predict([joints2dist(joints)])
                 signRecog = signRecog.tolist()[0]
                 prob = 1
 
-            if(prob <= 0.3) or (signRecog not in SIGN_LIST):
+            if (USE_PROB and ((prob <= 0.3) or (signRecog not in SIGN_LIST))):
                 print "No sign recognized"
                 signRecog = "NN"
                 signRecogC = EncodeAES(" ")
             else:
                 signRecogC = EncodeAES(crypt,signRecog)
 
-            tmp = ""+str(i)+"\t"+sign+"\t"+signRecog+" \n"
-            print tmp
+            #tmp = ""+str(i)+"\t"+sign+"\t"+signRecog+" \n"
+            print signRecog
 
             #Send and acknowledge
-            client.send_msg(signRecogC)
-            print("Recognized and sent sign %s\n"%signRecog)
+            #client.send_msg(signRecogC)
+            #print("Recognized and sent sign %s\n"%signRecog)
             #The hand will hold on the sign for 5 seconds
 
-            prediction = recog.predict(depth, mask)
+            #prediction = recog.predict(depth, mask)

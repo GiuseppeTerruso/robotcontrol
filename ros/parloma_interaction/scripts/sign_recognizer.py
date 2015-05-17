@@ -52,7 +52,7 @@ class SignClassifierNode:
     def __init__(self):
         rospy.init_node('sing_recoignizer', anonymous=True)
 
-        self.classifier_path = rospy.get_param('~classifier', 'forest-2layer.pkl')
+        self.classifier_path = rospy.get_param('~classifier', '../xml/clf_2.plk')
         self.signs_topic = rospy.get_param('signs_topic','/signs_topic')
         self.skeleton_topic = rospy.get_param('skeleton_topic','/skeleton')
 

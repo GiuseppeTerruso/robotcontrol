@@ -1,0 +1,8 @@
+<launch>
+  <group ns = "interaction">
+    <param name="signs_topic" value="/signs_topic" />
+
+    <node name="parloma_interaction_node_k" pkg="parloma_interaction" type="keyboard_control.py">
+    </node>
+  </group>
+</launch>

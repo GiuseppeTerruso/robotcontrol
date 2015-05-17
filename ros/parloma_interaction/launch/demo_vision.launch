@@ -10,7 +10,7 @@
   </group>
   <group ns = "ieiit">
     <param name="skeleton_topic" value="/skeleton_topic" />
-    <node name="skeleton_extractor" pkg="parloma_interaction" type="skeleton_extractor.py" output = "screen">
+    <node name="skeleton_extractor" pkg="parloma_interaction" type="skeleton_extractor.py" output = "screen" respawn = "true">
       <param name="forest" value="$(find parloma_interaction)/xml/forest-1layer.xml" />
     </node>
   </group>

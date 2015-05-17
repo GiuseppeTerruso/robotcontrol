@@ -1,4 +1,4 @@
-#define MAX_LABELS (22)
+#define N_LABELS (22)
 
 #define TARGET_DEPTH (500)
 
@@ -32,7 +32,7 @@ typedef struct TreeNode {
   int leftChild;
   short4 feature;
   short threshold;
-  float histogram[MAX_LABELS];
+  float histogram[N_LABELS];
 } TreeNode;
 
 
@@ -103,8 +103,7 @@ __kernel void predict(__global unsigned short *depthmap,
 		      //__global TreeNode *tree9,
 		      unsigned int forestSize,
 		      __local unsigned int *pixelLeaves,
-		      int mode,
-		      unsigned char nLabels)
+		      int mode)
 
 {
   unsigned int idx, currNode=0;
@@ -216,7 +215,7 @@ __kernel void predict(__global unsigned short *depthmap,
   float maxP = 0.0f;
   response = 0; // Will store the choosen label (avoid to declare another variable)
 
-  for (int l=0; l<nLabels; l++)
+  for (int l=0; l<N_LABELS; l++)
   {
     float tmpP = 0.0f;
 
@@ -448,14 +447,13 @@ __kernel void updatePerPixelVotes(__global unsigned short *depthmap,
 				  __global float3 *votes,
 				  __global float *weights,
 				  __local float *perBlockPoints,
-				  __local float *perBlockPosteriors,
-				  unsigned char nLabels)
+				  __local float *perBlockPosteriors)
 {
   float3 currPoint, m;
   float3 numTermSum = (float3)(0.0f, 0.0f, 0.0f);
   float denTermSum=0.0f;
   float w, expTerm;
-  __local unsigned int temp[MAX_LABELS];
+  __local unsigned int temp[N_LABELS];
   
   unsigned int label=0;
   unsigned int index=0;
@@ -464,13 +462,13 @@ __kernel void updatePerPixelVotes(__global unsigned short *depthmap,
   bool active, toWrite;
 
   // Find label and output offset
-  if (get_local_id(0)<nLabels)
+  if (get_local_id(0)<N_LABELS)
   {
     temp[get_local_id(0)] = perLabelPixelsCount[get_local_id(0)];
   }
   barrier(CLK_LOCAL_MEM_FENCE);
   
-  for (label=0; label<nLabels; label++)
+  for (label=0; label<N_LABELS; label++)
   {
     offset += temp[label];
     offset += get_local_size(0)-(temp[label]%get_local_size(0));
@@ -571,22 +569,21 @@ __kernel void clusterVotes(__global float3 *votes,
 			   float threshold,
 			   __global unsigned int *perLabelVotesCount,
 			   __local float *perBlockVotes,
-			   __local float *perBlockWeights,
-			   unsigned char nLabels)
+			   __local float *perBlockWeights)
 {
   unsigned int labelOffset=0, label, nVotes;
   float3 vote;
   float weight=0.0f;
   bool active;
-  __local unsigned int temp[MAX_LABELS];
+  __local unsigned int temp[N_LABELS];
 
-  if (get_local_id(0)<nLabels)
+  if (get_local_id(0)<N_LABELS)
   {
     temp[get_local_id(0)] = perLabelVotesCount[get_local_id(0)];
   }
   barrier(CLK_LOCAL_MEM_FENCE);
   
-  for (label=0; label<nLabels; label++)
+  for (label=0; label<N_LABELS; label++)
   {
     labelOffset += temp[label];
     labelOffset += get_local_size(0)-(temp[label]%get_local_size(0));

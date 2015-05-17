@@ -59,6 +59,8 @@ class HandDriver:
     # Constructor for HandDriver class. It retrieves the XML files, initializes the parsers and the ROS topics.
     def __init__(self):
 
+	self.OLD_SIGN = ""
+
         # get parameters
         self.output_topic = rospy.get_param('serial_topic', '/serial_topic');
 
@@ -88,10 +90,22 @@ class HandDriver:
     def sign_callback(self, StrSign):
 
         sign = str(StrSign)
+	print "[sign2command.py] REC " + sign
+	#print "AAA:::" + sign[-4:]
+	if sign[-4:] == "REST":
+            self.OLD_SIGN = ""
+            print "[sign2command.py] HARD CODED REST "
+	    self._send_rest()
+	    return
+
         sign2 = sign[-1]
 
-        print "AAA " + sign2
-
+	if sign2==self.OLD_SIGN:
+            print "[sign2command.py] OLD SIGN " + sign2
+	    return
+        
+	print "[sign2command.py] NEW SIGN " + sign2
+        self.OLD_SIGN = sign2
         # ps = ParserSigns(self.xml_signs)
         s = self.ps.parse_sign_rows(str(sign2), False)
 
@@ -99,7 +113,7 @@ class HandDriver:
         print cmds
 
         if cmds == None or len(cmds) == 0:
-            print "Sign " + sign2 + " not found!"
+            print "[sign2command.py] Sign " + sign2 + " not found!"
             self._send_rest()
         else:
             for cmd in cmds:
@@ -108,14 +122,14 @@ class HandDriver:
                 for c in range(len(cmd.keys())):
                     msg.msg.append(cmd[c])
                 self._serial_pub.publish(msg)
-                rospy.sleep(0.001)
+                rospy.sleep(0.2)
 
     ## @brief Documentation for function _send_rest
     #
     # Test function to send rest position
     def _send_rest(self):
         msg = generic_serial()
-        msg.msg = [241, 180, 180, 180, 180, 180, 70, 90, 50, 120]
+        msg.msg = [241, 180, 180, 180, 180, 180, 70, 90, 90, 120]
         self._serial_pub.publish(msg)
 
 
