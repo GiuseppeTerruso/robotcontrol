@@ -28,7 +28,7 @@ class SkeletonTrackerNode:
         self.skeleton_topic = rospy.get_param('skeleton_topic', '/skeleton')
         self.skeleton_pub = rospy.Publisher(self.skeleton_topic, hand_skeleton, queue_size=10)
 
-        self.recog = PyPoseRecognizer(22, WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
+        self.recog = PyPoseRecognizer(WIDTH, HEIGHT,self.forest_file,USE_CPU, 320)
         self.grabber = PyOpenNIHandGrabber()
 
     def run(self):
@@ -69,7 +69,7 @@ class SkeletonTrackerNode:
         to_show = cvtColor(self.rgb, COLOR_RGB2BGR)
         if (self.found_mask):
             blank_image = np.zeros(to_show.shape, np.uint8)
-            blank_image[:,:] = (0,0,255)
+            blank_image[:,:] = (0,255,0)
 
             rows,cols = self.mask.shape
             M = np.float32([[1,0,-20],[0,1,0]])
