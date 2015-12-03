@@ -21,8 +21,8 @@ JOINT_IDX2NAME = ["thumb_3_R", "thumb_2_R", "thumb_1_R",
                   "thumb_palm_R", "pinky_palm_R", "ring_palm_R", "middle_palm_R", "index_palm_R",
                   "palm_R", "wrist_R"]
                   
-#SIGN_LIST = ['A','B','C','D','F','I','L','R','S1','U','V','W','X','Y']
-SIGN_LIST = ['REST']
+SIGN_LIST = ['REST','A','B','C','D','F','I','L','R','S1','U','V','W','X','Y']
+#SIGN_LIST = ['REST']
 
 # Usage: python scriptname 1_layer_forrest user_name
 
@@ -110,11 +110,17 @@ if __name__=="__main__":
                     jointIdx += 1
                 tree.write(sign+sep+"frame%d_joints.xml"%frameIdx)
                 imwrite(sign+sep+"frame%d_depth.png"%frameIdx, depthmap)
+                depthmap[mask<10] = 0
+                imwrite(sign+sep+"frame%dsegm_depth.png"%frameIdx, depthmap)
+                imwrite(sign+sep+"frame%dmask.png"%frameIdx, mask)
                 frameIdx += 1
 
-            print("Wave the hand in front of the sensor")
-            while True:
-                rgb, depth = grabber.grabFrames()
-                pos = grabber.getHand3DPos() 
-                if pos[0] or pos[1] or pos[2]:
-                    break
+            rgb, depth = grabber.grabFrames()
+            pos = grabber.getHand3DPos()
+            if len(pos)<3:
+                print("Wave the hand in front of the sensor")
+                while True:
+                    rgb, depth = grabber.grabFrames()
+                    pos = grabber.getHand3DPos() 
+                    if pos[0] or pos[1] or pos[2]:
+                        break

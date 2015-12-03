@@ -10,10 +10,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS python)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -69,7 +70,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   geometry_msgs#   parloma_msgs#   std_msgs
+#   std_msgs  
 # )
 
 ###################################
@@ -84,7 +85,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES parloma_interaction
-#  CATKIN_DEPENDS geometry_msgs parloma_msgs roscpp rospy std_msgs
+   CATKIN_DEPENDS roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -105,16 +106,16 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(parloma_interaction_node src/parloma_interaction_node.cpp)
+add_executable(keyboard_input src/KeyboardInput.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(parloma_interaction_node parloma_interaction_generate_messages_cpp)
+add_dependencies(keyboard_input parloma_interaction_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(parloma_interaction_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(keyboard_input
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##

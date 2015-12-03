@@ -53,7 +53,7 @@ class Hand:
     
     joint_set = {'thumb':THUMB, 'index':INDEX, 'middle':MIDDLE, 'ring':RING, 'little':LITTLE, 'thumb_a': THUMB_A, 'index_a': INDEX_A, 'middle_a': MIDDLE_A, 'wrist': WRIST}
 
-    def __init__(self, hand_port):
+    def __init__(self, hand_port, d):
         self.serial_comm = serial.Serial(port=hand_port, baudrate=9600)
         if (self.serial_comm.isOpen()):
             print 'Communication Opened!'
@@ -61,6 +61,7 @@ class Hand:
             print 'Error: impossible to establish communication!'
         self.serial_comm.flushInput()
         self.serial_comm.flushOutput()
+        self.delay = d
 
     def __del__(self):
         self.perform_rest2()
@@ -209,7 +210,7 @@ class Hand:
     def perform_sign(self, msg):
         #print 'Segno da stampare ' + msg
         self.FNCT_LIST[msg](self)
-        time.sleep(5)
+        time.sleep(float(self.delay))
         return self.get_sign()
 
 

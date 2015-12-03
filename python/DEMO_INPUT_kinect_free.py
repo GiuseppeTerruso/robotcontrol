@@ -87,7 +87,7 @@ if __name__=="__main__":
 
     else:
 
-        client = ClientSocket(IP, PORT, 'P'*16)
+        #client = ClientSocket(IP, PORT, 'P'*16)
 
         #CV2 Windows
         namedWindow("rgb")
@@ -118,7 +118,7 @@ if __name__=="__main__":
             #print("q: exit")
 
             for j in range(0,50):
-                imshow("segno", image)
+                #imshow("segno", image)
                 rgb, depth = grabber.grabFrames()
                 pos = grabber.getHand3DPos()
                 mask = grabber.segment(depth, pos, RADIUS)
@@ -152,7 +152,7 @@ if __name__=="__main__":
             print tmp
 
             #Send and acknowledge
-            client.send_msg(signRecogC)
+            #client.send_msg(signRecogC)
             print("Recognized and sent sign %s\n"%signRecog)
             #The hand will hold on the sign for 5 seconds
 

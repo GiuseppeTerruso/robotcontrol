@@ -10,7 +10,7 @@
     </node>
 
     <node name="hand" pkg="serial_bridge" type="serial_node.py">
-      <param name="port" value="/dev/tty.usbmodem1421" />
+      <param name="port" value="/dev/hand" />
       <param name="baudrate" value="9600" />
     </node>
   </group>
